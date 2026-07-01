@@ -36,5 +36,6 @@ All 16 work items complete and verified. Phases 1 (build), 2 (browser E2E), and 
 ## Sprint 7 (Wave 7) — ✅ Done
 - [x] **T-016** Full-site base-path verification + secret scan + audit triage (FEAT-delivery-2)
 
-## Deploy — ⛔ Blocked (external)
-- GitHub repo creation + Pages deploy is blocked on `gh` authentication (`gh auth status` → not logged in). `main` is deploy-ready; workflow (`.github/workflows/deploy.yml`) will publish on push once the repo exists.
+## Deploy — ✅ Live
+- Repo `github.com/gcolegonzales/fratellis` (public); Pages source = GitHub Actions. Push to `main` builds + publishes via `.github/workflows/deploy.yml` (build ✓ + base-path verify ✓ + deploy ✓).
+- **Live: https://gcolegonzales.github.io/fratellis/** — home/menu/assets verified 200, CSS base-prefixed.
