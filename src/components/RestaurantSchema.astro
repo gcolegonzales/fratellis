@@ -45,6 +45,9 @@ const schema = {
     postalCode: site.address.zip,
     addressCountry: 'US',
   },
+  geo: site.geo
+    ? { '@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lon }
+    : undefined,
   openingHoursSpecification: openingHours,
 };
 ---

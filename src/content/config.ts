@@ -71,6 +71,7 @@ const site = defineCollection({
       zip: z.string(),
     }),
     mapQuery: z.string(),
+    geo: z.object({ lat: z.number(), lon: z.number() }).optional(),
     timezone: z.string(),
     hours: z.array(
       z.object({

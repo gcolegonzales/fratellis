@@ -26,7 +26,15 @@ export function directionsUrl(query: string = site.mapQuery): string {
   return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(query)}`;
 }
 
-/** A keyless Google Maps embed URL for an <iframe>. */
-export function mapEmbedUrl(query: string = site.mapQuery): string {
-  return `https://maps.google.com/maps?q=${encodeURIComponent(query)}&z=15&output=embed`;
+/** A reliable, keyless OpenStreetMap embed URL for an <iframe> (frames cleanly,
+ * unlike the Google keyless embed which Google now refuses to frame). */
+export function mapEmbedUrl(): string {
+  const geo = site.geo;
+  if (!geo) {
+    return `https://www.openstreetmap.org/export/embed.html?bbox=-91,30.2,-90.9,30.4&layer=mapnik`;
+  }
+  const dLon = 0.012;
+  const dLat = 0.008;
+  const bbox = [geo.lon - dLon, geo.lat - dLat, geo.lon + dLon, geo.lat + dLat].join('%2C');
+  return `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${geo.lat}%2C${geo.lon}`;
 }

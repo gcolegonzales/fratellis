@@ -13,6 +13,7 @@
     "zip": "70769"
   },
   "mapQuery": "Fratelli's Italian Grille, 17588 Airline Hwy, Prairieville, LA 70769",
+  "geo": { "lat": 30.2833652, "lon": -90.9545059 },
   "timezone": "America/Chicago",
   "hours": [
     { "day": "Mon", "open": null, "close": null },

@@ -1,5 +1,5 @@
 ---
-import { site, mapEmbedUrl } from '../lib/site';
+import { site, mapEmbedUrl, directionsUrl } from '../lib/site';
 
 interface Props {
   class?: string;
@@ -7,12 +7,30 @@ interface Props {
 const { class: className = '' } = Astro.props;
 ---
 
-<div class:list={['overflow-hidden rounded-card shadow-soft ring-1 ring-charcoal/10', className]}>
+<div
+  class:list={[
+    'relative overflow-hidden rounded-card bg-cream-200 shadow-soft ring-1 ring-charcoal/10',
+    className,
+  ]}
+>
   <iframe
     title={`Map to ${site.name}`}
     src={mapEmbedUrl()}
     loading="lazy"
     referrerpolicy="no-referrer-when-downgrade"
     class="h-full w-full"
-    style="border:0; min-height: 20rem;"></iframe>
+    style="border:0; min-height: 22rem;"></iframe>
+
+  <a
+    href={directionsUrl()}
+    target="_blank"
+    rel="noopener"
+    class="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-xl bg-cream-50/95 px-3.5 py-2 text-sm font-bold text-terracotta-700 shadow-soft ring-1 ring-charcoal/10 backdrop-blur hover:bg-cream-50"
+  >
+    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21s-6-5.686-6-10a6 6 0 1 1 12 0c0 4.314-6 10-6 10Z" />
+      <circle cx="12" cy="11" r="2" />
+    </svg>
+    Directions
+  </a>
 </div>
