@@ -1,0 +1,52 @@
+---
+// JSON-LD Restaurant structured data for rich local-search results.
+import { site } from '../lib/site';
+
+const origin = Astro.site?.origin ?? '';
+const base = import.meta.env.BASE_URL;
+const abs = (path: string) => `${origin}${base}${path.replace(/^\//, '')}`;
+
+// Map "11:00"/"21:00" hours into schema.org openingHoursSpecification.
+const dayUri: Record<string, string> = {
+  Mon: 'Monday',
+  Tue: 'Tuesday',
+  Wed: 'Wednesday',
+  Thu: 'Thursday',
+  Fri: 'Friday',
+  Sat: 'Saturday',
+  Sun: 'Sunday',
+};
+const openingHours = site.hours
+  .filter((h) => h.open && h.close)
+  .map((h) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: dayUri[h.day],
+    opens: h.open,
+    closes: h.close,
+  }));
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Restaurant',
+  name: site.name,
+  description: `${site.tagline}. Family owned since ${site.established}.`,
+  servesCuisine: site.cuisine,
+  priceRange: site.priceRange,
+  telephone: `+1-${site.phoneHref.replace(/^\+1/, '')}`,
+  url: origin ? abs('') : undefined,
+  image: origin ? abs('og-default.svg') : undefined,
+  hasMenu: origin ? abs('menu') : undefined,
+  acceptsReservations: 'True',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.address.street,
+    addressLocality: site.address.city,
+    addressRegion: site.address.state,
+    postalCode: site.address.zip,
+    addressCountry: 'US',
+  },
+  openingHoursSpecification: openingHours,
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} is:inline />

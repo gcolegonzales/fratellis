@@ -14,11 +14,11 @@
     "T-010": { "status": "done", "model": "sonnet", "attempts": 1, "filesChanged": ["src/pages/gallery.astro", "src/components/Gallery.astro", "public/images/gallery/*.svg", "e2e/gallery.spec.ts"] },
     "T-011": { "status": "done", "model": "sonnet", "attempts": 1, "filesChanged": ["src/pages/testimonials.astro", "src/components/Testimonials.astro", "src/content/testimonials/reviews.json", "src/content/config.ts"] },
     "T-014": { "status": "done", "model": "sonnet", "attempts": 1, "filesChanged": ["src/pages/about.astro"] },
-    "T-007": { "status": "pending", "model": "sonnet" },
-    "T-009": { "status": "pending", "model": "sonnet" },
-    "T-012": { "status": "pending", "model": "sonnet" },
+    "T-007": { "status": "done", "model": "sonnet", "attempts": 1, "filesChanged": ["src/pages/from-the-bar.astro", "src/components/BarSection.astro"] },
+    "T-009": { "status": "done", "model": "sonnet", "attempts": 1, "filesChanged": ["src/pages/index.astro", "src/components/Hero.astro"] },
+    "T-012": { "status": "done", "model": "sonnet", "attempts": 1, "filesChanged": ["src/pages/catering.astro", "src/components/CateringForm.astro", "e2e/catering.spec.ts"] },
     "T-015": { "status": "pending", "model": "sonnet" },
     "T-016": { "status": "pending", "model": "sonnet" }
   },
-  "waves": { "completed": [1, 2, 3, 4], "current": 5 }
+  "waves": { "completed": [1, 2, 3, 4, 5], "current": 6 }
 }
