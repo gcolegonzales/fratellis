@@ -1,0 +1,67 @@
+---
+// Internal design-system reference (excluded from nav + sitemap).
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+import Button from '../components/Button.astro';
+import Section from '../components/Section.astro';
+
+const swatches = [
+  ['Terracotta', 'bg-terracotta-500'],
+  ['Terracotta 600', 'bg-terracotta-600'],
+  ['Olive', 'bg-olive-500'],
+  ['Olive 700', 'bg-olive-700'],
+  ['Gold', 'bg-gold-500'],
+  ['Cream', 'bg-cream-100 ring-1 ring-charcoal/10'],
+  ['Charcoal', 'bg-charcoal'],
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Style Guide — Fratelli's Italian Grille</title>
+  </head>
+  <body>
+    <Section>
+      <p class="eyebrow">Design system</p>
+      <h1>Warm modern trattoria</h1>
+      <p class="prose-warm mt-3 max-w-prose">
+        Tokens and primitives for Fratelli's Italian Grille. Terracotta, olive, cream, gold, and
+        charcoal; Fraunces display over Inter body.
+      </p>
+
+      <h2 class="mt-12">Color</h2>
+      <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {
+          swatches.map(([name, cls]) => (
+            <div>
+              <div class={`h-16 rounded-card ${cls}`} />
+              <p class="mt-2 text-sm">{name}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="mt-12">Typography</h2>
+      <h1 class="mt-4">Display H1 — Buon Appetito</h1>
+      <h2>Display H2 — From our family</h2>
+      <h3>Display H3 — Fresh, made to order</h3>
+      <p class="prose-warm mt-2 max-w-prose">
+        Body copy in Inter. All dishes are prepared to order with the freshest ingredients.
+      </p>
+
+      <h2 class="mt-12">Buttons</h2>
+      <div class="mt-4 flex flex-wrap items-center gap-3">
+        <Button variant="primary">Reserve a table</Button>
+        <Button variant="secondary">View menu</Button>
+        <Button variant="ghost">Get directions</Button>
+        <Button variant="primary" size="lg" href="#">Large link button</Button>
+        <Button variant="primary" disabled>Disabled</Button>
+      </div>
+    </Section>
+  </body>
+</html>

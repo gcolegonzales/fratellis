@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "branch": "spec-build/all-1",
+  "startedAtNote": "build started 2026-06-30 (in-tree sequential execution, wave order)",
+  "tasks": {
+    "T-001": { "status": "done", "model": "sonnet", "attempts": 2, "filesChanged": ["package.json", "astro.config.mjs", "tsconfig.json", "tailwind.config.mjs", "eslint.config.mjs", ".prettierrc", ".prettierignore", "vitest.config.ts", "playwright.config.ts", ".nvmrc", ".gitignore", ".gitattributes", ".env.example", "src/env.d.ts", "src/pages/index.astro", "tests/sample.test.ts", "e2e/smoke.spec.ts"] },
+    "T-002": { "status": "pending", "model": "sonnet" },
+    "T-003": { "status": "pending", "model": "sonnet" },
+    "T-013": { "status": "pending", "model": "sonnet" },
+    "T-004": { "status": "pending", "model": "sonnet" },
+    "T-005": { "status": "pending", "model": "sonnet" },
+    "T-006": { "status": "pending", "model": "sonnet" },
+    "T-008": { "status": "pending", "model": "sonnet" },
+    "T-010": { "status": "pending", "model": "sonnet" },
+    "T-011": { "status": "pending", "model": "sonnet" },
+    "T-014": { "status": "pending", "model": "sonnet" },
+    "T-007": { "status": "pending", "model": "sonnet" },
+    "T-009": { "status": "pending", "model": "sonnet" },
+    "T-012": { "status": "pending", "model": "sonnet" },
+    "T-015": { "status": "pending", "model": "sonnet" },
+    "T-016": { "status": "pending", "model": "sonnet" }
+  },
+  "waves": { "completed": [1], "current": 2 }
+}

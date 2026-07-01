@@ -1,0 +1,51 @@
+---
+// Design-system button. Renders as <a> when `href` is set, else <button>.
+// Variants: primary | secondary | ghost. Sizes: md | lg.
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'md' | 'lg';
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+  disabled?: boolean;
+  [key: string]: unknown;
+}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  type = 'button',
+  class: className = '',
+  disabled = false,
+  ...rest
+} = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 rounded-pill font-body font-semibold no-underline transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-60';
+
+const sizes = {
+  md: 'px-5 py-2.5 text-sm',
+  lg: 'px-7 py-3.5 text-base',
+};
+
+const variants = {
+  primary: 'bg-terracotta-600 text-cream-50 hover:bg-terracotta-700 shadow-soft',
+  secondary: 'bg-olive-600 text-cream-50 hover:bg-olive-700 shadow-soft',
+  ghost: 'bg-transparent text-terracotta-700 ring-1 ring-inset ring-terracotta-300 hover:bg-terracotta-50',
+};
+
+const cls = [base, sizes[size], variants[variant], className].join(' ');
+---
+
+{
+  href ? (
+    <a href={href} class={cls} aria-disabled={disabled ? 'true' : undefined} {...rest}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class={cls} disabled={disabled} {...rest}>
+      <slot />
+    </button>
+  )
+}
