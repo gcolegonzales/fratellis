@@ -72,6 +72,11 @@
     @apply text-charcoal-light leading-relaxed;
   }
 
+  /* Anchor targets under the header + sticky category nav land below both. */
+  .cat-target {
+    scroll-margin-top: calc(var(--sticky-offset, 8.5rem) + 0.5rem);
+  }
+
   /* Custom category scroller (menu + bar pages). */
   .cat-nav-track {
     scrollbar-width: none;

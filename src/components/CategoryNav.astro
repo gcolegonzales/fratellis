@@ -14,7 +14,7 @@ const { items, prefix, label = 'Categories', class: className = '' } = Astro.pro
 
 <div
   class:list={[
-    'category-nav sticky top-[3.75rem] z-30 -mx-5 border-y border-charcoal/10 bg-cream/95 backdrop-blur sm:-mx-8',
+    'category-nav sticky top-[var(--header-h,5rem)] z-30 -mx-5 border-y border-charcoal/10 bg-cream/95 backdrop-blur sm:-mx-8',
     className,
   ]}
 >
@@ -55,6 +55,17 @@ const { items, prefix, label = 'Categories', class: className = '' } = Astro.pro
       const edgeR = root.querySelector<HTMLElement>('.cat-edge-right');
       if (!track) continue;
       const chips = Array.from(track.querySelectorAll<HTMLAnchorElement>('.cat-chip'));
+
+      // Publish header + nav height so anchor targets clear both sticky bars,
+      // and so the nav sticks flush under the (variable-height) header.
+      const setOffsets = () => {
+        const header = document.querySelector('header');
+        const headerH = header ? header.offsetHeight : 80;
+        document.documentElement.style.setProperty('--header-h', `${headerH}px`);
+        document.documentElement.style.setProperty('--sticky-offset', `${headerH + root.offsetHeight}px`);
+      };
+      setOffsets();
+      window.addEventListener('resize', setOffsets);
 
       const updateEdges = () => {
         const max = track.scrollWidth - track.clientWidth;

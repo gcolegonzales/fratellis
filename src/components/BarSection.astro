@@ -8,7 +8,7 @@ interface Props {
 const { category, items } = Astro.props;
 ---
 
-<section id={`bar-${category.id}`} data-category-section={category.id} class="scroll-mt-28">
+<section id={`bar-${category.id}`} data-category-section={category.id} class="cat-target">
   <h2 class="border-b border-terracotta-200 pb-2 text-2xl sm:text-3xl">{category.name}</h2>
   <ul class="mt-5 divide-y divide-charcoal/10">
     {

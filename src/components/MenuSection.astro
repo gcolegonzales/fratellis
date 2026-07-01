@@ -9,7 +9,7 @@ interface Props {
 const { category, items } = Astro.props;
 ---
 
-<section id={`cat-${category.id}`} data-category-section={category.id} class="scroll-mt-28">
+<section id={`cat-${category.id}`} data-category-section={category.id} class="cat-target">
   <div class="flex flex-wrap items-baseline justify-between gap-2 border-b border-terracotta-200 pb-2">
     <h2 class="text-2xl sm:text-3xl">{category.name}</h2>
   </div>

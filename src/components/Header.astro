@@ -147,5 +147,14 @@ const current = Astro.url.pathname;
     if (e.matches) setOpen(false);
   });
 
-  document.addEventListener('astro:page-load', bindNav);
+  function setHeaderHeight() {
+    const h = document.querySelector('header');
+    if (h) document.documentElement.style.setProperty('--header-h', `${h.offsetHeight}px`);
+  }
+  window.addEventListener('resize', setHeaderHeight);
+
+  document.addEventListener('astro:page-load', () => {
+    bindNav();
+    setHeaderHeight();
+  });
 </script>
