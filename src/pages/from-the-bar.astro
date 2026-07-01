@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import Button from '../components/Button.astro';
 import BarSection from '../components/BarSection.astro';
+import CategoryNav from '../components/CategoryNav.astro';
 import { groupByCategory, type MenuItem, type Category } from '../lib/menu';
 import { withBase } from '../lib/base';
 
@@ -28,22 +29,12 @@ const catName = (id: string) => categories.find((c) => c.id === id)?.name ?? id;
       </p>
     </div>
 
-    <nav
-      aria-label="Bar categories"
-      class="sticky top-[3.75rem] z-30 -mx-5 mt-8 overflow-x-auto border-y border-charcoal/10 bg-cream/95 px-5 py-2 backdrop-blur sm:-mx-8 sm:px-8"
-    >
-      <ul class="flex gap-1.5 whitespace-nowrap">
-        {
-          grouped.map(({ category }) => (
-            <li>
-              <a href={`#bar-${category}`} class="inline-block rounded-pill px-3 py-1 text-sm font-medium text-charcoal-light no-underline hover:bg-terracotta-50">
-                {catName(category)}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
+    <CategoryNav
+      class="mt-8"
+      prefix="bar"
+      label="Bar categories"
+      items={grouped.map(({ category }) => ({ id: category, name: catName(category) }))}
+    />
 
     <div class="mt-10 space-y-12">
       {grouped.map(({ category, items: catItems }) => <BarSection category={categories.find((c) => c.id === category) ?? { id: category, name: catName(category) }} items={catItems} />)}

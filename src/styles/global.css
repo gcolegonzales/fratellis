@@ -71,6 +71,42 @@
   .prose-warm {
     @apply text-charcoal-light leading-relaxed;
   }
+
+  /* Custom category scroller (menu + bar pages). */
+  .cat-nav-track {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .cat-nav-track::-webkit-scrollbar {
+    display: none;
+  }
+  .cat-chip {
+    @apply inline-block shrink-0 whitespace-nowrap rounded-pill px-4 py-1.5 text-sm font-medium tracking-wide text-charcoal-light no-underline transition-all duration-200;
+  }
+  .cat-chip:hover {
+    @apply bg-terracotta-50 text-terracotta-700;
+  }
+  .cat-chip.is-active {
+    @apply bg-charcoal text-cream-50 shadow-soft;
+  }
+  .cat-chip.is-active:hover {
+    @apply bg-charcoal text-cream-50;
+  }
+  .cat-edge {
+    @apply pointer-events-none absolute inset-y-0 z-10 flex w-16 items-center;
+  }
+  .cat-edge[hidden] {
+    display: none;
+  }
+  .cat-edge-left {
+    @apply left-0 justify-start bg-gradient-to-r from-cream via-cream/85 to-transparent pl-1.5;
+  }
+  .cat-edge-right {
+    @apply right-0 justify-end bg-gradient-to-l from-cream via-cream/85 to-transparent pr-1.5;
+  }
+  .cat-nav-arrow {
+    @apply pointer-events-auto grid h-8 w-8 place-items-center rounded-full bg-cream-50 text-charcoal shadow-soft ring-1 ring-charcoal/10 transition hover:bg-cream-100 hover:text-terracotta-700;
+  }
 }
 
 @layer utilities {

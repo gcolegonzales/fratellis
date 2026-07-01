@@ -1,0 +1,113 @@
+---
+// Custom horizontal category scroller shared by the menu and bar pages.
+// Hidden native scrollbar, gradient fade edges with chevron buttons that appear
+// only when there's overflow, and an active chip that tracks the section in view
+// and auto-centers itself. Active-tracking observes [data-category-section].
+interface Props {
+  items: { id: string; name: string }[];
+  prefix: string; // anchor prefix, e.g. 'cat' or 'bar'
+  label?: string;
+  class?: string;
+}
+const { items, prefix, label = 'Categories', class: className = '' } = Astro.props;
+---
+
+<div
+  class:list={[
+    'category-nav sticky top-[3.75rem] z-30 -mx-5 border-y border-charcoal/10 bg-cream/95 backdrop-blur sm:-mx-8',
+    className,
+  ]}
+>
+  <div class="relative mx-auto max-w-content">
+    <div class="cat-edge cat-edge-left" hidden>
+      <button type="button" class="cat-nav-arrow cat-nav-prev" aria-label="Scroll categories left">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+    </div>
+
+    <nav aria-label={label} class="cat-nav-track flex gap-1.5 overflow-x-auto scroll-smooth px-5 py-2.5 sm:px-8">
+      {
+        items.map((it) => (
+          <a href={`#${prefix}-${it.id}`} data-cat-link={it.id} class="cat-chip">
+            {it.name}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="cat-edge cat-edge-right" hidden>
+      <button type="button" class="cat-nav-arrow cat-nav-next" aria-label="Scroll categories right">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initCategoryNav() {
+    for (const root of document.querySelectorAll<HTMLElement>('.category-nav')) {
+      const track = root.querySelector<HTMLElement>('.cat-nav-track');
+      const edgeL = root.querySelector<HTMLElement>('.cat-edge-left');
+      const edgeR = root.querySelector<HTMLElement>('.cat-edge-right');
+      if (!track) continue;
+      const chips = Array.from(track.querySelectorAll<HTMLAnchorElement>('.cat-chip'));
+
+      const updateEdges = () => {
+        const max = track.scrollWidth - track.clientWidth;
+        const overflow = max > 2;
+        edgeL?.toggleAttribute('hidden', !(overflow && track.scrollLeft > 2));
+        edgeR?.toggleAttribute('hidden', !(overflow && track.scrollLeft < max - 2));
+      };
+
+      root.querySelector('.cat-nav-prev')?.addEventListener('click', () =>
+        track.scrollBy({ left: -track.clientWidth * 0.7, behavior: 'smooth' }),
+      );
+      root.querySelector('.cat-nav-next')?.addEventListener('click', () =>
+        track.scrollBy({ left: track.clientWidth * 0.7, behavior: 'smooth' }),
+      );
+      track.addEventListener('scroll', updateEdges, { passive: true });
+      window.addEventListener('resize', updateEdges);
+      updateEdges();
+
+      const setActive = (id?: string) => {
+        for (const chip of chips) {
+          const on = chip.dataset.catLink === id;
+          chip.classList.toggle('is-active', on);
+          if (on) {
+            chip.setAttribute('aria-current', 'true');
+            // Center the active chip within the track (never scrolls the page).
+            const cLeft = chip.offsetLeft;
+            const cRight = cLeft + chip.clientWidth;
+            if (cLeft < track.scrollLeft || cRight > track.scrollLeft + track.clientWidth) {
+              track.scrollTo({
+                left: cLeft - (track.clientWidth - chip.clientWidth) / 2,
+                behavior: 'smooth',
+              });
+            }
+          } else {
+            chip.removeAttribute('aria-current');
+          }
+        }
+      };
+
+      const sections = document.querySelectorAll<HTMLElement>('[data-category-section]');
+      if (sections.length) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) setActive(entry.target.dataset.categorySection);
+            }
+          },
+          { rootMargin: '-45% 0px -50% 0px' },
+        );
+        sections.forEach((s) => io.observe(s));
+      }
+    }
+  }
+
+  document.addEventListener('astro:page-load', initCategoryNav);
+</script>

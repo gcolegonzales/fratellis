@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import MenuSection from '../components/MenuSection.astro';
 import MenuFilter from '../components/MenuFilter.astro';
+import CategoryNav from '../components/CategoryNav.astro';
 import { groupByCategory, getAllTags, type MenuItem, type Category } from '../lib/menu';
 
 const food = await getEntry('menu', 'food');
@@ -28,27 +29,13 @@ const catName = (id: string) => categories.find((c) => c.id === id)?.name ?? id;
       </p>
     </div>
 
-    <!-- Sticky category navigator -->
-    <nav
-      aria-label="Menu categories"
-      class="sticky top-[3.75rem] z-30 -mx-5 mt-8 overflow-x-auto border-y border-charcoal/10 bg-cream/95 px-5 py-2 backdrop-blur sm:-mx-8 sm:px-8"
-    >
-      <ul class="flex gap-1.5 whitespace-nowrap">
-        {
-          grouped.map(({ category }) => (
-            <li>
-              <a
-                href={`#cat-${category}`}
-                data-cat-link={category}
-                class="inline-block rounded-pill px-3 py-1 text-sm font-medium text-charcoal-light no-underline hover:bg-terracotta-50"
-              >
-                {catName(category)}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
+    <!-- Sticky custom category scroller -->
+    <CategoryNav
+      class="mt-8"
+      prefix="cat"
+      label="Menu categories"
+      items={grouped.map(({ category }) => ({ id: category, name: catName(category) }))}
+    />
 
     <div class="mt-6">
       <MenuFilter tags={tags} />
@@ -130,23 +117,6 @@ const catName = (id: string) => categories.find((c) => c.id === id)?.name ?? id;
     });
     clearBtn?.addEventListener('click', clearAll);
     document.getElementById('menu-no-results-clear')?.addEventListener('click', clearAll);
-
-    // Highlight the category link for the section currently in view.
-    const links = new Map<string, HTMLElement>();
-    document.querySelectorAll<HTMLElement>('[data-cat-link]').forEach((l) => links.set(l.dataset.catLink!, l));
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          const id = (entry.target as HTMLElement).dataset.categorySection!;
-          links.forEach((l, key) =>
-            l.classList.toggle('bg-terracotta-600', key === id) || l.classList.toggle('text-cream-50', key === id),
-          );
-        }
-      },
-      { rootMargin: '-40% 0px -55% 0px' },
-    );
-    document.querySelectorAll('[data-category-section]').forEach((s) => observer.observe(s));
     }
 
     document.addEventListener('astro:page-load', initMenu);
