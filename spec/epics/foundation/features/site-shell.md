@@ -22,6 +22,7 @@ Build the shared `BaseLayout` (document head, skip-link, header, footer, slot), 
 - [ ] `src/lib/base.ts` exports `withBase(path)` and ALL internal links/asset refs in the shell use it (verified: built site with `BASE_PATH=/fratellis/` has correctly-prefixed links — unit test on `withBase`).
 - [ ] `src/lib/submit.ts` exports `submit(formName, payload): Promise<SubmitResult>` with a Formspree implementation (when `PUBLIC_FORMSPREE_ID` set) and a `mailto:` fallback; pure-enough to unit test the payload-building and endpoint-selection logic. Components must call this, never inline a transport.
 - [ ] No horizontal scroll at 320px; nav and footer pass keyboard + contrast checks.
+- [ ] `BaseLayout` enables **Astro View Transitions** (`<ClientRouter />`) for smooth route transitions (ADR 0003), degrading gracefully where unsupported and honoring `prefers-reduced-motion`. Client islands (mobile nav, menu filter, forms, lightbox, badges) continue to work across client-side navigations.
 
 ## Constraints / non-goals
 - Do not implement individual page bodies or forms' UI here — only the shell, helpers, and the `submit()` seam.

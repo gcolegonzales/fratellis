@@ -47,6 +47,8 @@ Permanent (not just v1):
 - Build tooling must run on Windows and in GitHub Actions (Ubuntu) identically.
 - All real business facts must be accurate: address 17588 Airline Hwy, Prairieville, LA 70769; phone (225) 313-4704; hours Tue–Thu & Sun 11–9, Fri–Sat 11–10, Mon closed; established 2017.
 - Design direction is fixed: **warm modern trattoria** — terracotta / olive / cream palette, elegant serif display headings + clean sans body, generous food imagery, soft shadows, rounded-but-refined. Do not reuse the original site's look.
+- **Motion & feel:** the site should feel sleek and modern — tasteful entrance/scroll-reveal animations, smooth hover/state transitions, and smooth page/route transitions (see ADR 0003). Motion is refined, GPU-friendly, and always respects `prefers-reduced-motion`; it must never be required to understand or operate the UI.
+- **Home page is presentational, not a catalog:** the landing page leads with brand, ambiance, and story; it must not front-load the menu as dish/price cards. The menu lives on `/menu` and is reached from the home page via an understated invitation.
 - Imagery: use license-clear placeholder/stock food photography (or tasteful CSS/gradient placeholders) clearly swappable for the restaurant's real photos. No scraping of the original site's images.
 
 ## Non-functional requirements
