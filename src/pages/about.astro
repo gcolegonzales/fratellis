@@ -36,13 +36,15 @@ import { site } from '../lib/site';
         </div>
       </div>
 
-      <figure class="order-first lg:order-last">
+      <figure
+        class="relative order-first overflow-hidden rounded-card shadow-lift ring-1 ring-charcoal/10 after:pointer-events-none after:absolute after:inset-0 after:rounded-card after:ring-1 after:ring-inset after:ring-gold-400/25 lg:order-last"
+      >
         <img
-          src={withBase('/images/gallery/family-table.svg')}
-          alt="A family table set for dinner at Fratelli's"
-          width="800"
-          height="600"
-          class="w-full rounded-card shadow-lift ring-1 ring-charcoal/10"
+          src={withBase('/images/gallery/bar.jpg')}
+          alt="Wine glasses glowing in warm candlelight at Fratelli's"
+          width="1200"
+          height="800"
+          class="aspect-[3/2] w-full object-cover"
         />
       </figure>
     </div>

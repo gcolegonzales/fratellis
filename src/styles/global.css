@@ -60,7 +60,12 @@
 @layer components {
   /* Shared eyebrow/label treatment used across sections. */
   .eyebrow {
-    @apply font-body text-sm font-semibold uppercase tracking-[0.18em] text-terracotta-600;
+    @apply inline-flex items-center gap-2.5 font-body text-sm font-semibold uppercase tracking-[0.18em] text-terracotta-600;
+  }
+  /* Editorial gold rule before the eyebrow label. */
+  .eyebrow::before {
+    content: '';
+    @apply h-px w-8 bg-gold-500/70;
   }
 
   .prose-warm {

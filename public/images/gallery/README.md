@@ -1,10 +1,17 @@
-# Gallery images
+# Gallery & site images
 
-These `.svg` files are **placeholders**. To use real photos:
+The `.jpg` files here (and `../hero.jpg`) are **license-clear stock photos** from
+[Pexels](https://www.pexels.com) (Pexels License — free for commercial use, no
+attribution required). They are stand-ins until Fratelli's own photography is available.
 
-1. Add your images to this folder (JPG or WebP recommended, ~1200×900, optimized).
-2. Open `src/pages/gallery.astro` and update the `images` list — set each `src` to
-   your new filename and write a short, descriptive `alt` for each.
-3. Keep `alt` text meaningful (it's read by screen readers and shown as the caption).
+To use your own photos:
 
-No image here was taken from the original website; all placeholders are generated.
+1. Replace a file with your own image (keep the filename, or add a new one).
+   Recommended: JPG/WebP, ~1400px on the long edge, optimized.
+2. If you add new filenames, update the `images` list in `src/pages/gallery.astro`
+   (and the hero in `src/components/Hero.astro`, ambiance image in
+   `src/pages/index.astro`, About image in `src/pages/about.astro`).
+3. Keep `alt` text meaningful — it's read by screen readers and shown as the
+   lightbox caption.
+
+No image was taken from the original restaurant website.

@@ -5,43 +5,68 @@ import { withBase } from '../lib/base';
 import { site } from '../lib/site';
 ---
 
-<section class="relative isolate overflow-hidden bg-charcoal text-cream-100">
-  <!-- Background image + warm gradient scrim for legibility -->
+<section class="relative isolate flex min-h-[88vh] items-center overflow-hidden bg-charcoal text-cream-100">
+  <!-- Real photography + layered scrim for a premium, legible hero -->
   <img
-    src={withBase('/images/gallery/wood-fired-pizza.svg')}
+    src={withBase('/images/hero.jpg')}
     alt=""
     aria-hidden="true"
-    class="absolute inset-0 -z-10 h-full w-full object-cover opacity-40"
+    fetchpriority="high"
+    class="absolute inset-0 -z-20 h-full w-full object-cover"
   />
   <div
-    class="absolute inset-0 -z-10 bg-gradient-to-br from-charcoal via-charcoal/85 to-terracotta-900/70"
+    class="absolute inset-0 -z-10 bg-gradient-to-tr from-charcoal via-charcoal/80 to-charcoal/30"
   >
   </div>
+  <div
+    class="absolute inset-0 -z-10 bg-[radial-gradient(120%_120%_at_15%_100%,theme(colors.terracotta.900/.55),transparent_60%)]"
+  >
+  </div>
+  <!-- soft vignette -->
+  <div class="pointer-events-none absolute inset-0 -z-10 shadow-[inset_0_-120px_140px_-60px_rgba(20,17,15,0.9)]">
+  </div>
 
-  <div class="mx-auto max-w-content px-5 py-24 sm:px-8 sm:py-32 lg:py-40">
+  <div class="mx-auto w-full max-w-content px-5 py-24 sm:px-8">
     <div class="max-w-2xl">
-      <p class="eyebrow text-gold-400">Prairieville, Louisiana · Est. {site.established}</p>
-      <h1 class="mt-4 font-display text-4xl font-semibold leading-[1.05] text-cream-50 sm:text-6xl">
-        Authentic Italian,<br />made to order.
+      <p class="flex items-center gap-3 font-body text-sm font-semibold uppercase tracking-[0.22em] text-gold-400">
+        <span class="h-px w-10 bg-gold-400/70"></span>
+        Prairieville, Louisiana · Est. {site.established}
+      </p>
+      <h1 class="mt-6 font-display text-5xl font-semibold leading-[1.02] text-cream-50 drop-shadow-sm sm:text-7xl">
+        Authentic Italian,<br />
+        <span class="italic text-gold-300">made to order.</span>
       </h1>
-      <p class="mt-5 max-w-xl text-lg leading-relaxed text-cream-100/85">
-        Family owned and family run. Fresh pasta, wood-fired pizza, and Italian classics served the
-        way they should be — from our family's table to yours.
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-cream-100/85 sm:text-xl">
+        A family-owned kitchen where the sauce simmers all day and every plate is made by hand.
+        Fresh pasta, wood-fired pizza, and Italian classics — served like family.
       </p>
 
-      <div class="mt-8 flex flex-wrap items-center gap-3">
-        <Button href={withBase('/menu')} variant="primary" size="lg">View the menu</Button>
-        <Button href={withBase('/reservations')} size="lg" class="bg-cream-50 text-charcoal hover:bg-cream-100">
-          Reserve a table
+      <div class="mt-9 flex flex-wrap items-center gap-3">
+        <Button href={withBase('/reservations')} variant="primary" size="lg">Reserve a table</Button>
+        <Button href={withBase('/menu')} size="lg" class="bg-cream-50/95 text-charcoal hover:bg-cream-50">
+          Explore the menu
         </Button>
       </div>
 
-      <div class="mt-8 flex flex-wrap items-center gap-4">
+      <div class="mt-9 flex flex-wrap items-center gap-x-5 gap-y-3">
         <OpenNowBadge />
-        <a href={`tel:${site.phoneHref}`} class="text-sm font-semibold text-gold-400 no-underline hover:underline">
+        <a
+          href={`tel:${site.phoneHref}`}
+          class="text-sm font-semibold text-gold-300 no-underline transition-colors hover:text-gold-400"
+        >
           {site.phone}
         </a>
       </div>
     </div>
+  </div>
+
+  <!-- scroll cue -->
+  <div
+    class="pointer-events-none absolute inset-x-0 bottom-6 flex justify-center text-cream-100/50"
+    aria-hidden="true"
+  >
+    <svg class="h-6 w-6 animate-bounce" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M6 13l6 6 6-6" />
+    </svg>
   </div>
 </section>

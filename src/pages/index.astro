@@ -32,13 +32,16 @@ import { site, formatAddress, directionsUrl } from '../lib/site';
           <Button href={withBase('/about')} variant="ghost">Our story</Button>
         </div>
       </div>
-      <figure class="overflow-hidden rounded-card shadow-lift ring-1 ring-charcoal/10" data-reveal>
+      <figure
+        class="relative overflow-hidden rounded-card shadow-lift ring-1 ring-charcoal/10 after:pointer-events-none after:absolute after:inset-0 after:rounded-card after:ring-1 after:ring-inset after:ring-gold-400/25"
+        data-reveal
+      >
         <img
-          src={withBase('/images/gallery/dining-room.svg')}
-          alt="The warm, candlelit dining room at Fratelli's"
-          width="800"
-          height="600"
-          class="h-full w-full object-cover"
+          src={withBase('/images/gallery/dining-room.jpg')}
+          alt="A candlelit table set with gold-rimmed china at Fratelli's"
+          width="1400"
+          height="1050"
+          class="aspect-[4/3] h-full w-full object-cover"
         />
       </figure>
     </div>
