@@ -18,6 +18,18 @@
     font-feature-settings: 'kern';
   }
 
+  /* Subtle warm paper grain for a rustic, hearty feel (behind content). */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.6;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+
   /* The `hidden` attribute must win over display utilities (flex/grid/etc.) so
      toggling `element.hidden` reliably hides interactive elements. */
   [hidden] {
@@ -62,10 +74,13 @@
   .eyebrow {
     @apply inline-flex items-center gap-2.5 font-body text-sm font-semibold uppercase tracking-[0.18em] text-terracotta-600;
   }
-  /* Warm rule before the eyebrow label. */
+  /* Chunky warm rule before the eyebrow label. */
+  .eyebrow {
+    @apply font-bold;
+  }
   .eyebrow::before {
     content: '';
-    @apply h-px w-8 bg-terracotta-400/80;
+    @apply h-0.5 w-10 rounded-full bg-terracotta-500;
   }
 
   .prose-warm {
