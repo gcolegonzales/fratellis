@@ -2,41 +2,39 @@
 
 > Local work-item board. Source of truth. Sprint = wave. Synced to: none
 
-**Totals:** 16 items · Done 4 · To Do 1 · Backlog 11 · In Progress 0
+**Totals:** 16 items · Done 16 · Remaining 0 · (Deploy to GitHub Pages pending `gh` auth)
 
-## Sprint 1 (Wave 1) — ✅ complete
-### Done
-- [x] **T-001** Scaffold Astro+TS+Tailwind + toolchain (FEAT-foundation-1) · sonnet <!-- ext: — -->
+All 16 work items complete and verified. Phases 1 (build), 2 (browser E2E), and 3 (audit triage) done.
 
-## Sprint 2 (Wave 2) — ✅ complete
-### Done
-- [x] **T-002** Design system tokens + primitives (FEAT-foundation-2) · sonnet <!-- ext: — -->
-- [x] **T-003** Content collections + seeded menu/bar/site data + query lib (FEAT-menu-1) · sonnet <!-- ext: — -->
-- [x] **T-013** Pages CI workflow + base-path checker + deploy docs (FEAT-delivery-2) · sonnet <!-- ext: — -->
+## Sprint 1 (Wave 1) — ✅ Done
+- [x] **T-001** Scaffold Astro+TS+Tailwind + toolchain (FEAT-foundation-1)
 
-## Sprint 3 (Wave 3)
-### To Do
-- [ ] **T-004** Site shell: layout, header/nav, footer, withBase(), submit() seam, 404 (FEAT-foundation-3) · sonnet · deps: T-002 <!-- ext: — -->
+## Sprint 2 (Wave 2) — ✅ Done
+- [x] **T-002** Design system (FEAT-foundation-2)
+- [x] **T-003** Content collections + seeded menu/bar/site data + lib (FEAT-menu-1)
+- [x] **T-013** Pages CI workflow + base-path checker + docs (FEAT-delivery-2)
 
-## Sprint 4 (Wave 4)
-### Backlog
-- [ ] **T-005** Contact page + open-now hours logic + map (FEAT-content-3) · sonnet · deps: T-004,T-003 <!-- ext: — -->
-- [ ] **T-006** Visual filterable food menu page (FEAT-menu-2) · sonnet · deps: T-003,T-004 <!-- ext: — -->
-- [ ] **T-008** Reservation page + validated form via submit() (FEAT-engagement-1) · sonnet · deps: T-004 <!-- ext: — -->
-- [ ] **T-010** Photo gallery + accessible lightbox (FEAT-engagement-3) · sonnet · deps: T-004 <!-- ext: — -->
-- [ ] **T-011** Testimonials content + page + component (FEAT-engagement-4) · sonnet · deps: T-004,T-003 <!-- ext: — -->
-- [ ] **T-014** About page (FEAT-content-2) · sonnet · deps: T-004 <!-- ext: — -->
+## Sprint 3 (Wave 3) — ✅ Done
+- [x] **T-004** Site shell: layout/header/footer/withBase()/submit()/404 (FEAT-foundation-3)
 
-## Sprint 5 (Wave 5)
-### Backlog
-- [ ] **T-007** From the Bar page (FEAT-menu-3) · sonnet · deps: T-006,T-003 <!-- ext: — -->
-- [ ] **T-009** Home page (FEAT-content-1) · sonnet · deps: T-004,T-003,T-005,T-011 <!-- ext: — -->
-- [ ] **T-012** Catering page + inquiry form (FEAT-engagement-2) · sonnet · deps: T-008 <!-- ext: — -->
+## Sprint 4 (Wave 4) — ✅ Done
+- [x] **T-005** Contact + open-now hours + map (FEAT-content-3)
+- [x] **T-006** Filterable food menu page (FEAT-menu-2)
+- [x] **T-008** Reservation page + validated form (FEAT-engagement-1)
+- [x] **T-010** Gallery + accessible lightbox (FEAT-engagement-3)
+- [x] **T-011** Testimonials content + page + component (FEAT-engagement-4)
+- [x] **T-014** About page (FEAT-content-2)
 
-## Sprint 6 (Wave 6)
-### Backlog
-- [ ] **T-015** SEO/meta, OG, JSON-LD Restaurant schema, sitemap, robots (FEAT-delivery-1) · sonnet · deps: T-004,T-005,T-009 <!-- ext: — -->
+## Sprint 5 (Wave 5) — ✅ Done
+- [x] **T-007** From the Bar page (FEAT-menu-3)
+- [x] **T-009** Home page (FEAT-content-1)
+- [x] **T-012** Catering page + inquiry form (FEAT-engagement-2)
 
-## Sprint 7 (Wave 7)
-### Backlog
-- [ ] **T-016** Full-site base-path build verification + link integrity (FEAT-delivery-2) · sonnet · deps: all pages, T-013, T-015 <!-- ext: — -->
+## Sprint 6 (Wave 6) — ✅ Done
+- [x] **T-015** SEO/OG/JSON-LD/sitemap/robots (FEAT-delivery-1)
+
+## Sprint 7 (Wave 7) — ✅ Done
+- [x] **T-016** Full-site base-path verification + secret scan + audit triage (FEAT-delivery-2)
+
+## Deploy — ⛔ Blocked (external)
+- GitHub repo creation + Pages deploy is blocked on `gh` authentication (`gh auth status` → not logged in). `main` is deploy-ready; workflow (`.github/workflows/deploy.yml`) will publish on push once the repo exists.
