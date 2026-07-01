@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import { withBase } from '../lib/base';
+---
+
+<BaseLayout title="Page not found" description="That page has left the kitchen.">
+  <Section>
+    <div class="mx-auto max-w-prose text-center">
+      <p class="eyebrow">404</p>
+      <h1 class="mt-3">That page has left the kitchen</h1>
+      <p class="prose-warm mt-4">
+        The page you're looking for isn't on the menu. Let's get you back to the good stuff.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <Button href={withBase('/')} variant="primary">Back home</Button>
+        <Button href={withBase('/menu')} variant="ghost">View the menu</Button>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

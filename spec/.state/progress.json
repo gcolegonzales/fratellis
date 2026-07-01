@@ -4,9 +4,9 @@
   "startedAtNote": "build started 2026-06-30 (in-tree sequential execution, wave order)",
   "tasks": {
     "T-001": { "status": "done", "model": "sonnet", "attempts": 2, "filesChanged": ["package.json", "astro.config.mjs", "tsconfig.json", "tailwind.config.mjs", "eslint.config.mjs", ".prettierrc", ".prettierignore", "vitest.config.ts", "playwright.config.ts", ".nvmrc", ".gitignore", ".gitattributes", ".env.example", "src/env.d.ts", "src/pages/index.astro", "tests/sample.test.ts", "e2e/smoke.spec.ts"] },
-    "T-002": { "status": "pending", "model": "sonnet" },
-    "T-003": { "status": "pending", "model": "sonnet" },
-    "T-013": { "status": "pending", "model": "sonnet" },
+    "T-002": { "status": "done", "model": "sonnet", "attempts": 2, "filesChanged": ["tailwind.config.mjs", "src/styles/global.css", "src/components/Button.astro", "src/components/Section.astro", "src/pages/styleguide.astro"] },
+    "T-003": { "status": "done", "model": "sonnet", "attempts": 1, "filesChanged": ["src/content/config.ts", "src/content/menu/food.json", "src/content/bar/drinks.json", "src/content/site/info.json", "src/lib/menu.ts", "tests/menu.test.ts"] },
+    "T-013": { "status": "done", "model": "sonnet", "attempts": 2, "filesChanged": [".github/workflows/deploy.yml", "public/.nojekyll", "scripts/check-base-paths.mjs", "README.md"] },
     "T-004": { "status": "pending", "model": "sonnet" },
     "T-005": { "status": "pending", "model": "sonnet" },
     "T-006": { "status": "pending", "model": "sonnet" },
@@ -20,5 +20,5 @@
     "T-015": { "status": "pending", "model": "sonnet" },
     "T-016": { "status": "pending", "model": "sonnet" }
   },
-  "waves": { "completed": [1], "current": 2 }
+  "waves": { "completed": [1, 2], "current": 3 }
 }
