@@ -5,8 +5,8 @@ import { withBase } from '../lib/base';
 import { site } from '../lib/site';
 ---
 
-<section class="relative isolate flex min-h-[88vh] items-center overflow-hidden bg-charcoal text-cream-100">
-  <!-- Real photography + layered scrim for a premium, legible hero -->
+<section class="relative isolate flex min-h-[78vh] items-center overflow-hidden bg-charcoal text-cream-100">
+  <!-- Real photography + a warm scrim for a cozy, legible hero -->
   <img
     src={withBase('/images/hero.jpg')}
     alt=""
@@ -15,15 +15,12 @@ import { site } from '../lib/site';
     class="absolute inset-0 -z-20 h-full w-full object-cover"
   />
   <div
-    class="absolute inset-0 -z-10 bg-gradient-to-tr from-charcoal via-charcoal/80 to-charcoal/30"
+    class="absolute inset-0 -z-10 bg-gradient-to-r from-charcoal/90 via-charcoal/65 to-transparent"
   >
   </div>
   <div
-    class="absolute inset-0 -z-10 bg-[radial-gradient(120%_120%_at_15%_100%,theme(colors.terracotta.900/.55),transparent_60%)]"
+    class="absolute inset-0 -z-10 bg-[radial-gradient(130%_120%_at_10%_90%,theme(colors.terracotta.800/.6),transparent_62%)] mix-blend-multiply"
   >
-  </div>
-  <!-- soft vignette -->
-  <div class="pointer-events-none absolute inset-0 -z-10 shadow-[inset_0_-120px_140px_-60px_rgba(20,17,15,0.9)]">
   </div>
 
   <div class="mx-auto w-full max-w-content px-5 py-24 sm:px-8">
@@ -33,12 +30,12 @@ import { site } from '../lib/site';
         Prairieville, Louisiana · Est. {site.established}
       </p>
       <h1 class="mt-6 font-display text-5xl font-semibold leading-[1.02] text-cream-50 drop-shadow-sm sm:text-7xl">
-        Authentic Italian,<br />
-        <span class="italic text-gold-300">made to order.</span>
+        Hearty Italian,<br />
+        <span class="italic text-cream-50">served like family.</span>
       </h1>
       <p class="mt-6 max-w-xl text-lg leading-relaxed text-cream-100/85 sm:text-xl">
-        A family-owned kitchen where the sauce simmers all day and every plate is made by hand.
-        Fresh pasta, wood-fired pizza, and Italian classics — served like family.
+        A family-owned kitchen where the sauce simmers all day and everything's made by hand — big
+        plates of pasta, wood-fired pizza, and Italian classics. No fuss, just good food.
       </p>
 
       <div class="mt-9 flex flex-wrap items-center gap-3">
