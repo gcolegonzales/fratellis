@@ -41,3 +41,10 @@ Branch: `spec-build/all-1` · Execution: in-tree sequential by wave order (relia
 - **Decision:** accepted as documented dev-only risk. Follow-up: upgrade dev toolchain (Astro 5 / Vitest 3) to clear.
 - Secret scan: clean (matches were `.env.example` doc + test placeholders only). No secrets committed.
 - Final integrated verify: typecheck 0 err · build 11 pages · 49 unit tests · 11 e2e · lint clean · base-path check ✓.
+
+## Change 1 — presentational home + motion system (via /change)
+- **Spec-first:** reframed FEAT-content-1 (home = presentational, no dish/price catalog up front), added ADR 0003 (Motion & transitions), motion notes to product.md + FEAT-foundation-2/3. Spec diff committed.
+- **Home redesign:** hero → ambiance/story ("Benvenuti") → understated "Explore the menu →" band (no DishCard grid) → plan-your-visit (hours/open-now) → quiet 2-up testimonials → catering. Removed featured-dish catalog + menu-data import from the home page.
+- **Motion system (ADR 0003):** scroll-reveal (`[data-reveal]` + IntersectionObserver in BaseLayout, visible-by-default, reduced-motion safe), hover-lift on Button/DishCard/Testimonials, Astro **ViewTransitions** (Astro 4 name; not `ClientRouter`) for smooth route fades.
+- **Island durability:** refactored every client island (Header nav, menu filter, reservation + catering forms, gallery lightbox, OpenNowBadge, HoursTable) to (re)initialize on `astro:page-load` so interactivity survives View-Transition navigations; document-level listeners bound once and query live DOM.
+- **Verified in browser:** home is presentational; client-nav home→menu keeps eval context (SPA) and the menu filter re-inits (23 seafood); mobile nav re-binds after nav; reveal active; no console errors. Gate: typecheck 0 err · build 11 pages · 49 unit · 11 e2e · lint ✓.
