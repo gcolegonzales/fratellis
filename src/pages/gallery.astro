@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Gallery, { type GalleryImage } from '../components/Gallery.astro';
+
+// Placeholder imagery — replace the files in public/images/gallery/ with real
+// photos (keep the same filenames or update this list). See the README there.
+const images: GalleryImage[] = [
+  { src: '/images/gallery/dining-room.svg', alt: 'The warm, inviting dining room at Fratelli’s' },
+  { src: '/images/gallery/wood-fired-pizza.svg', alt: 'A thin-crust wood-fired pizza fresh from the oven' },
+  { src: '/images/gallery/fresh-pasta.svg', alt: 'A plate of house-made fresh pasta' },
+  { src: '/images/gallery/the-bar.svg', alt: 'Wine and cocktails from the bar' },
+  { src: '/images/gallery/tiramisu.svg', alt: 'Classic Italian tiramisu' },
+  { src: '/images/gallery/family-table.svg', alt: 'A family table set for dinner' },
+];
+---
+
+<BaseLayout
+  title="Gallery"
+  description="A look inside Fratelli's Italian Grille — the dining room, the food, and the family table."
+>
+  <Section>
+    <div class="max-w-prose">
+      <p class="eyebrow">A look inside</p>
+      <h1 class="mt-3">Gallery</h1>
+      <p class="prose-warm mt-4">
+        A taste of the room and the table. Tap any photo to view it larger.
+      </p>
+    </div>
+
+    <div class="mt-10">
+      <Gallery images={images} />
+    </div>
+  </Section>
+</BaseLayout>

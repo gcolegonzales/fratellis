@@ -1,0 +1,150 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import MenuSection from '../components/MenuSection.astro';
+import MenuFilter from '../components/MenuFilter.astro';
+import { groupByCategory, getAllTags, type MenuItem, type Category } from '../lib/menu';
+
+const food = await getEntry('menu', 'food');
+const items = food.data.items as MenuItem[];
+const categories = food.data.categories as Category[];
+const grouped = groupByCategory(items, categories);
+const tags = getAllTags(items);
+const catName = (id: string) => categories.find((c) => c.id === id)?.name ?? id;
+---
+
+<BaseLayout
+  title="Menu"
+  description="Explore Fratelli's full menu — starters, pizza, pasta, chicken, veal, seafood, and more. Filter and search to find your favorite."
+>
+  <Section>
+    <div class="max-w-prose">
+      <p class="eyebrow">Buon appetito</p>
+      <h1 class="mt-3">Our menu</h1>
+      <p class="prose-warm mt-4">
+        Everything is made to order with fresh ingredients. Search, filter by type, or jump to a
+        section below.
+      </p>
+    </div>
+
+    <!-- Sticky category navigator -->
+    <nav
+      aria-label="Menu categories"
+      class="sticky top-[3.75rem] z-30 -mx-5 mt-8 overflow-x-auto border-y border-charcoal/10 bg-cream/95 px-5 py-2 backdrop-blur sm:-mx-8 sm:px-8"
+    >
+      <ul class="flex gap-1.5 whitespace-nowrap">
+        {
+          grouped.map(({ category }) => (
+            <li>
+              <a
+                href={`#cat-${category}`}
+                data-cat-link={category}
+                class="inline-block rounded-pill px-3 py-1 text-sm font-medium text-charcoal-light no-underline hover:bg-terracotta-50"
+              >
+                {catName(category)}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="mt-6">
+      <MenuFilter tags={tags} />
+    </div>
+
+    <div id="menu-sections" class="mt-10 space-y-14">
+      {grouped.map(({ category, items: catItems }) => <MenuSection category={categories.find((c) => c.id === category) ?? { id: category, name: catName(category) }} items={catItems} />)}
+    </div>
+
+    <p id="menu-no-results" hidden class="mt-10 rounded-card bg-cream-50 p-6 text-center text-charcoal-muted ring-1 ring-charcoal/10">
+      No dishes match your search. <button type="button" id="menu-no-results-clear" class="font-semibold text-terracotta-700 underline">Clear filters</button>.
+    </p>
+  </Section>
+
+  <script is:inline type="application/json" id="menu-data" set:html={JSON.stringify(items)} />
+
+  <script>
+    import { filterItems, type MenuItem } from '../lib/menu';
+
+    const dataEl = document.getElementById('menu-data');
+    const items: MenuItem[] = dataEl ? JSON.parse(dataEl.textContent || '[]') : [];
+    const search = document.getElementById('menu-search') as HTMLInputElement | null;
+    const clearBtn = document.getElementById('menu-clear');
+    const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('.tag-chip'));
+    const countEl = document.getElementById('menu-result-count');
+    const noResults = document.getElementById('menu-no-results');
+    const total = items.length;
+
+    const activeTags = new Set<string>();
+
+    function debounce<T extends (...a: never[]) => void>(fn: T, ms: number) {
+      let t: ReturnType<typeof setTimeout>;
+      return (...args: Parameters<T>) => {
+        clearTimeout(t);
+        t = setTimeout(() => fn(...args), ms);
+      };
+    }
+
+    function apply() {
+      const query = search?.value ?? '';
+      const tags = [...activeTags];
+      const matches = filterItems(items, { tags, query });
+      const visible = new Set(matches.map((m) => m.id));
+
+      for (const card of document.querySelectorAll<HTMLElement>('.dish-card')) {
+        card.hidden = !visible.has(card.dataset.dishId || '');
+      }
+
+      // Hide sections with no visible cards.
+      for (const section of document.querySelectorAll<HTMLElement>('[data-category-section]')) {
+        const anyVisible = section.querySelector('.dish-card:not([hidden])');
+        section.hidden = !anyVisible;
+      }
+
+      const filtering = query.trim() !== '' || tags.length > 0;
+      if (countEl) countEl.textContent = filtering ? `Showing ${matches.length} of ${total} dishes` : '';
+      if (clearBtn) clearBtn.classList.toggle('hidden', !filtering);
+      if (noResults) noResults.hidden = matches.length !== 0;
+    }
+
+    function clearAll() {
+      if (search) search.value = '';
+      activeTags.clear();
+      chips.forEach((c) => c.setAttribute('aria-pressed', 'false'));
+      apply();
+    }
+
+    search?.addEventListener('input', debounce(apply, 150));
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const tag = chip.dataset.tag!;
+        const pressed = chip.getAttribute('aria-pressed') === 'true';
+        chip.setAttribute('aria-pressed', String(!pressed));
+        if (pressed) activeTags.delete(tag);
+        else activeTags.add(tag);
+        apply();
+      });
+    });
+    clearBtn?.addEventListener('click', clearAll);
+    document.getElementById('menu-no-results-clear')?.addEventListener('click', clearAll);
+
+    // Highlight the category link for the section currently in view.
+    const links = new Map<string, HTMLElement>();
+    document.querySelectorAll<HTMLElement>('[data-cat-link]').forEach((l) => links.set(l.dataset.catLink!, l));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const id = (entry.target as HTMLElement).dataset.categorySection!;
+          links.forEach((l, key) =>
+            l.classList.toggle('bg-terracotta-600', key === id) || l.classList.toggle('text-cream-50', key === id),
+          );
+        }
+      },
+      { rootMargin: '-40% 0px -55% 0px' },
+    );
+    document.querySelectorAll('[data-category-section]').forEach((s) => observer.observe(s));
+  </script>
+</BaseLayout>

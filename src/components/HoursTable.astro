@@ -1,0 +1,55 @@
+---
+import { site, DAY_LABELS } from '../lib/site';
+import { formatTime } from '../lib/hours';
+
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+
+const rows = site.hours.map((h) => ({
+  day: h.day,
+  label: DAY_LABELS[h.day] ?? h.day,
+  value: h.open && h.close ? `${formatTime(h.open)} – ${formatTime(h.close)}` : 'Closed',
+  closed: !(h.open && h.close),
+}));
+---
+
+<table class:list={['hours-table w-full text-left', className]} data-tz={site.timezone}>
+  <caption class="sr-only">Weekly hours</caption>
+  <tbody>
+    {
+      rows.map((r) => (
+        <tr data-day={r.day} class="border-b border-charcoal/10 last:border-0">
+          <th scope="row" class="py-2.5 pr-4 font-body font-medium text-charcoal">
+            {r.label}
+          </th>
+          <td class:list={['py-2.5 text-right', r.closed ? 'text-charcoal-muted' : 'text-charcoal-light']}>
+            {r.value}
+          </td>
+        </tr>
+      ))
+    }
+  </tbody>
+</table>
+
+<style>
+  .hours-table tr[data-today='true'] th,
+  .hours-table tr[data-today='true'] td {
+    color: theme('colors.terracotta.700');
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  // Highlight today's row using the restaurant's timezone.
+  const table = document.querySelector<HTMLTableElement>('.hours-table');
+  if (table) {
+    const tz = table.dataset.tz || 'America/Chicago';
+    const weekday = new Intl.DateTimeFormat('en-US', { timeZone: tz, weekday: 'short' }).format(
+      new Date(),
+    );
+    const row = table.querySelector(`tr[data-day="${weekday}"]`);
+    row?.setAttribute('data-today', 'true');
+  }
+</script>

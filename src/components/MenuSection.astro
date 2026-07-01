@@ -1,0 +1,25 @@
+---
+import DishCard from './DishCard.astro';
+import type { MenuItem, Category } from '../lib/menu';
+
+interface Props {
+  category: Category;
+  items: MenuItem[];
+}
+const { category, items } = Astro.props;
+---
+
+<section id={`cat-${category.id}`} data-category-section={category.id} class="scroll-mt-28">
+  <div class="flex flex-wrap items-baseline justify-between gap-2 border-b border-terracotta-200 pb-2">
+    <h2 class="text-2xl sm:text-3xl">{category.name}</h2>
+  </div>
+  {category.note && <p class="prose-warm mt-2 text-sm italic">{category.note}</p>}
+
+  <div class="mt-6 grid gap-4 sm:grid-cols-2">
+    {items.map((item) => <DishCard item={item} />)}
+  </div>
+
+  <p class="section-empty mt-6 hidden text-sm text-charcoal-muted">
+    No dishes in this section match your filters.
+  </p>
+</section>

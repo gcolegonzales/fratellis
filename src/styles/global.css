@@ -18,6 +18,12 @@
     font-feature-settings: 'kern';
   }
 
+  /* The `hidden` attribute must win over display utilities (flex/grid/etc.) so
+     toggling `element.hidden` reliably hides interactive elements. */
+  [hidden] {
+    display: none !important;
+  }
+
   h1,
   h2,
   h3,

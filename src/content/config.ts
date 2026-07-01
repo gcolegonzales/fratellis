@@ -88,6 +88,17 @@ const site = defineCollection({
   }),
 });
 
-// Testimonials collection is appended in FEAT-engagement-4 (T-011).
+const testimonials = defineCollection({
+  type: 'data',
+  schema: z.object({
+    reviews: z.array(
+      z.object({
+        quote: z.string(),
+        author: z.string().default('Verified guest'),
+        source: z.string().optional(),
+      }),
+    ),
+  }),
+});
 
-export const collections = { menu, bar, site };
+export const collections = { menu, bar, site, testimonials };

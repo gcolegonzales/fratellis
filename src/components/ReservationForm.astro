@@ -1,0 +1,161 @@
+---
+// Reservation request form. Validates with pure helpers (src/lib/form.ts) and
+// submits through the swappable submit() seam (src/lib/submit.ts) — no transport
+// is hard-coded here. In mailto-fallback mode the confirmation offers a
+// pre-filled email link rather than navigating away.
+const fieldClass =
+  'mt-1 w-full rounded-lg border-0 bg-cream px-3.5 py-2.5 text-charcoal ring-1 ring-charcoal/15 focus:ring-2 focus:ring-terracotta-600';
+const labelClass = 'block font-body text-sm font-semibold text-charcoal';
+const errorClass = 'mt-1 text-sm text-terracotta-700';
+---
+
+<form id="reservation-form" novalidate class="grid gap-5 sm:grid-cols-2">
+  <div class="sm:col-span-2">
+    <label class={labelClass} for="r-name">Name</label>
+    <input class={fieldClass} id="r-name" name="name" type="text" autocomplete="name" aria-describedby="r-name-error" required />
+    <p class={errorClass} id="r-name-error" hidden></p>
+  </div>
+
+  <div>
+    <label class={labelClass} for="r-phone">Phone</label>
+    <input class={fieldClass} id="r-phone" name="phone" type="tel" autocomplete="tel" aria-describedby="r-phone-error" required />
+    <p class={errorClass} id="r-phone-error" hidden></p>
+  </div>
+
+  <div>
+    <label class={labelClass} for="r-email">Email</label>
+    <input class={fieldClass} id="r-email" name="email" type="email" autocomplete="email" aria-describedby="r-email-error" required />
+    <p class={errorClass} id="r-email-error" hidden></p>
+  </div>
+
+  <div>
+    <label class={labelClass} for="r-date">Date</label>
+    <input class={fieldClass} id="r-date" name="date" type="date" aria-describedby="r-date-error" required />
+    <p class={errorClass} id="r-date-error" hidden></p>
+  </div>
+
+  <div>
+    <label class={labelClass} for="r-time">Time</label>
+    <input class={fieldClass} id="r-time" name="time" type="time" aria-describedby="r-time-error" required />
+    <p class={errorClass} id="r-time-error" hidden></p>
+  </div>
+
+  <div>
+    <label class={labelClass} for="r-party">Party size</label>
+    <input class={fieldClass} id="r-party" name="partySize" type="number" min="1" max="100" inputmode="numeric" aria-describedby="r-party-error" required />
+    <p class={errorClass} id="r-party-error" hidden></p>
+  </div>
+
+  <div class="sm:col-span-2">
+    <label class={labelClass} for="r-notes">Notes <span class="font-normal text-charcoal-muted">(optional)</span></label>
+    <textarea class={fieldClass} id="r-notes" name="notes" rows="3" aria-describedby="r-notes-error"></textarea>
+  </div>
+
+  <div class="sm:col-span-2">
+    <button
+      type="submit"
+      id="r-submit"
+      class="inline-flex items-center justify-center rounded-pill bg-terracotta-600 px-6 py-3 font-body font-semibold text-cream-50 shadow-soft transition-colors hover:bg-terracotta-700 disabled:opacity-60"
+    >
+      Request a table
+    </button>
+    <p class="mt-3 text-sm text-charcoal-muted">
+      This sends a request — we'll confirm by phone. For same-day tables, please call
+      <a href="tel:+12253134704" class="font-semibold text-terracotta-700">(225) 313-4704</a>.
+    </p>
+  </div>
+</form>
+
+<div
+  id="reservation-confirm"
+  role="status"
+  aria-live="polite"
+  hidden
+  class="rounded-card bg-olive-50 p-6 ring-1 ring-olive-200"
+>
+  <h2 class="font-display text-2xl font-semibold text-olive-700">Thanks — almost there!</h2>
+  <p class="prose-warm mt-2" id="reservation-confirm-msg"></p>
+  <a id="reservation-mailto" href="#" hidden class="mt-4 inline-flex items-center justify-center rounded-pill bg-terracotta-600 px-5 py-2.5 font-semibold text-cream-50 no-underline">Open your email to send</a>
+</div>
+
+<script>
+  import { validateReservation, hasErrors, type Errors } from '../lib/form';
+  import { submit } from '../lib/submit';
+
+  const form = document.getElementById('reservation-form') as HTMLFormElement | null;
+  const confirm = document.getElementById('reservation-confirm');
+  const confirmMsg = document.getElementById('reservation-confirm-msg');
+  const mailtoLink = document.getElementById('reservation-mailto') as HTMLAnchorElement | null;
+  const submitBtn = document.getElementById('r-submit') as HTMLButtonElement | null;
+
+  const fieldIds: Record<string, string> = {
+    name: 'r-name',
+    phone: 'r-phone',
+    email: 'r-email',
+    date: 'r-date',
+    time: 'r-time',
+    partySize: 'r-party',
+  };
+
+  function showErrors(errors: Errors) {
+    for (const [field, id] of Object.entries(fieldIds)) {
+      const input = document.getElementById(id) as HTMLInputElement | null;
+      const errEl = document.getElementById(`${id}-error`);
+      const msg = errors[field];
+      if (input) input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      if (errEl) {
+        errEl.textContent = msg ?? '';
+        errEl.hidden = !msg;
+      }
+    }
+    const firstBad = Object.keys(errors)[0];
+    if (firstBad) document.getElementById(fieldIds[firstBad])?.focus();
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const values = {
+      name: String(data.get('name') ?? ''),
+      phone: String(data.get('phone') ?? ''),
+      email: String(data.get('email') ?? ''),
+      date: String(data.get('date') ?? ''),
+      time: String(data.get('time') ?? ''),
+      partySize: String(data.get('partySize') ?? ''),
+      notes: String(data.get('notes') ?? ''),
+    };
+
+    const errors = validateReservation(values);
+    showErrors(errors);
+    if (hasErrors(errors)) return;
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+    }
+
+    const result = await submit('reservation', values);
+
+    if (result.ok) {
+      form.hidden = true;
+      if (confirm) confirm.hidden = false;
+      if (result.mode === 'mailto' && result.mailto && mailtoLink) {
+        mailtoLink.href = result.mailto;
+        mailtoLink.hidden = false;
+        if (confirmMsg)
+          confirmMsg.textContent =
+            'We’ve prepared your request. Tap below to send it from your email app, or call us to confirm right away.';
+      } else if (confirmMsg) {
+        confirmMsg.textContent =
+          'Your request has been sent — we’ll call you shortly to confirm your table.';
+      }
+      confirm?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Request a table';
+      }
+      alert('Something went wrong sending your request. Please try again or call us.');
+    }
+  });
+</script>

@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import { withBase } from '../lib/base';
+import { site } from '../lib/site';
+---
+
+<BaseLayout
+  title="About"
+  description="Family owned since 2017, Fratelli's Italian Grille brings authentic, made-to-order Italian cooking to Prairieville, Louisiana."
+>
+  <Section>
+    <div class="grid items-center gap-10 lg:grid-cols-2">
+      <div class="max-w-prose">
+        <p class="eyebrow">Our story</p>
+        <h1 class="mt-3">A family table in Prairieville</h1>
+        <p class="prose-warm mt-5">
+          Fratelli's Italian Grille opened its doors in {site.established}, and in the years since
+          it has become a go-to Italian restaurant for Ascension Parish and the communities around
+          it. Step inside and the first thing you'll notice is the aroma of real Italian cooking.
+        </p>
+        <p class="prose-warm mt-4">
+          We're family owned and family run, and it shows in the details. Every dish is prepared to
+          order using the freshest ingredients we can find — nothing sits under a heat lamp waiting.
+          Our goal is simple: give you a true Italian dining experience, plate after plate.
+        </p>
+        <p class="prose-warm mt-4">
+          Whether it's a weeknight dinner, a date night, or a table full of family, we'd be honored
+          to cook for you.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Button href={withBase('/menu')} variant="primary">View the menu</Button>
+          <Button href={withBase('/reservations')} variant="ghost">Reserve a table</Button>
+        </div>
+      </div>
+
+      <figure class="order-first lg:order-last">
+        <img
+          src={withBase('/images/gallery/family-table.svg')}
+          alt="A family table set for dinner at Fratelli's"
+          width="800"
+          height="600"
+          class="w-full rounded-card shadow-lift ring-1 ring-charcoal/10"
+        />
+      </figure>
+    </div>
+
+    <blockquote
+      class="mx-auto mt-16 max-w-3xl border-l-4 border-terracotta-500 pl-6 font-display text-2xl leading-snug text-charcoal sm:text-3xl"
+    >
+      “All dishes are prepared to order and made with the freshest ingredients — the true Italian
+      dining experience, from our family to your table.”
+    </blockquote>
+  </Section>
+</BaseLayout>

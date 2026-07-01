@@ -1,0 +1,55 @@
+---
+// Live "Open now / Closed" badge. Server-renders an initial value at build time,
+// then a client script recomputes against the visitor's real current time using
+// the same pure logic (America/Chicago). Progressive: shows a sensible value
+// even without JS.
+import { site } from '../lib/site';
+import { openStatus } from '../lib/hours';
+
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+const initial = openStatus(site.hours, new Date(), site.timezone);
+---
+
+<span
+  class:list={[
+    'open-now-badge inline-flex items-center gap-2 rounded-pill bg-cream-50 px-3 py-1 text-sm font-medium text-charcoal shadow-soft ring-1 ring-charcoal/10',
+    className,
+  ]}
+  data-open={String(initial.open)}
+  data-hours={JSON.stringify(site.hours)}
+  data-tz={site.timezone}
+>
+  <span class="badge-dot h-2 w-2 shrink-0 rounded-full" aria-hidden="true"></span>
+  <span class="badge-label">{initial.label}</span>
+</span>
+
+<style>
+  .badge-dot {
+    background: #9aa0a6;
+  }
+  .open-now-badge[data-open='true'] .badge-dot {
+    background: #3f9142;
+  }
+  .open-now-badge[data-open='false'] .badge-dot {
+    background: #b23b3b;
+  }
+</style>
+
+<script>
+  import { openStatus } from '../lib/hours';
+  for (const el of document.querySelectorAll<HTMLElement>('.open-now-badge')) {
+    try {
+      const hours = JSON.parse(el.dataset.hours || '[]');
+      const tz = el.dataset.tz || 'America/Chicago';
+      const status = openStatus(hours, new Date(), tz);
+      el.setAttribute('data-open', String(status.open));
+      const label = el.querySelector('.badge-label');
+      if (label) label.textContent = status.label;
+    } catch {
+      /* keep the server-rendered fallback */
+    }
+  }
+</script>

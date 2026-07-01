@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import HoursTable from '../components/HoursTable.astro';
+import OpenNowBadge from '../components/OpenNowBadge.astro';
+import MapEmbed from '../components/MapEmbed.astro';
+import { withBase } from '../lib/base';
+import { site, formatAddress, directionsUrl } from '../lib/site';
+---
+
+<BaseLayout
+  title="Contact & Hours"
+  description={`Visit ${site.name} at ${formatAddress()}. Call ${site.phone} — open Tuesday through Sunday.`}
+>
+  <Section>
+    <div class="max-w-prose">
+      <p class="eyebrow">Come see us</p>
+      <h1 class="mt-3">Contact &amp; hours</h1>
+      <p class="prose-warm mt-4">
+        We're on Airline Highway in Prairieville. Give us a call to reserve a table or ask about
+        catering — we'd love to feed you.
+      </p>
+      <div class="mt-5">
+        <OpenNowBadge />
+      </div>
+    </div>
+
+    <div class="mt-12 grid gap-10 lg:grid-cols-2">
+      <div class="space-y-8">
+        <div>
+          <h2 class="text-2xl">Find us</h2>
+          <address class="prose-warm mt-3 not-italic">
+            {formatAddress()}
+          </address>
+          <div class="mt-4 flex flex-wrap gap-3">
+            <Button href={`tel:${site.phoneHref}`} variant="primary">Call {site.phone}</Button>
+            <Button href={directionsUrl()} variant="ghost">Get directions</Button>
+          </div>
+        </div>
+
+        <div>
+          <h2 class="text-2xl">Hours</h2>
+          <div class="mt-3 max-w-sm">
+            <HoursTable />
+          </div>
+          <p class="prose-warm mt-3 text-sm">Kitchen closes at listed times. Closed Mondays.</p>
+        </div>
+
+        <div class="rounded-card bg-cream-50 p-6 shadow-soft ring-1 ring-charcoal/10">
+          <h2 class="text-xl">Planning something bigger?</h2>
+          <p class="prose-warm mt-2 text-sm">
+            Reserve a table or tell us about your event and we'll take care of the rest.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-3">
+            <Button href={withBase('/reservations')} variant="secondary">Reserve a table</Button>
+            <Button href={withBase('/catering')} variant="ghost">Catering inquiry</Button>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <MapEmbed class="h-full min-h-[24rem]" />
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

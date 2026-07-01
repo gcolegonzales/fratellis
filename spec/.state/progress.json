@@ -7,7 +7,7 @@
     "T-002": { "status": "done", "model": "sonnet", "attempts": 2, "filesChanged": ["tailwind.config.mjs", "src/styles/global.css", "src/components/Button.astro", "src/components/Section.astro", "src/pages/styleguide.astro"] },
     "T-003": { "status": "done", "model": "sonnet", "attempts": 1, "filesChanged": ["src/content/config.ts", "src/content/menu/food.json", "src/content/bar/drinks.json", "src/content/site/info.json", "src/lib/menu.ts", "tests/menu.test.ts"] },
     "T-013": { "status": "done", "model": "sonnet", "attempts": 2, "filesChanged": [".github/workflows/deploy.yml", "public/.nojekyll", "scripts/check-base-paths.mjs", "README.md"] },
-    "T-004": { "status": "pending", "model": "sonnet" },
+    "T-004": { "status": "done", "model": "sonnet", "attempts": 1, "filesChanged": ["src/layouts/BaseLayout.astro", "src/components/Header.astro", "src/components/Footer.astro", "src/lib/base.ts", "src/lib/submit.ts", "src/lib/site.ts", "src/pages/404.astro", "public/favicon.svg", "tests/base.test.ts", "tests/submit.test.ts"] },
     "T-005": { "status": "pending", "model": "sonnet" },
     "T-006": { "status": "pending", "model": "sonnet" },
     "T-008": { "status": "pending", "model": "sonnet" },
@@ -20,5 +20,5 @@
     "T-015": { "status": "pending", "model": "sonnet" },
     "T-016": { "status": "pending", "model": "sonnet" }
   },
-  "waves": { "completed": [1, 2], "current": 3 }
+  "waves": { "completed": [1, 2, 3], "current": 4 }
 }

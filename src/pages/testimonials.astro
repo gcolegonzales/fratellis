@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import Testimonials from '../components/Testimonials.astro';
+import { withBase } from '../lib/base';
+---
+
+<BaseLayout
+  title="Reviews"
+  description="What guests are saying about Fratelli's Italian Grille in Prairieville, Louisiana."
+>
+  <Section>
+    <div class="max-w-prose">
+      <p class="eyebrow">Kind words</p>
+      <h1 class="mt-3">What our guests say</h1>
+      <p class="prose-warm mt-4">
+        We're grateful for the community that has made Fratelli's a neighborhood favorite.
+      </p>
+    </div>
+
+    <div class="mt-10">
+      <Testimonials />
+    </div>
+
+    <div class="mt-12 flex flex-wrap gap-3">
+      <Button href={withBase('/reservations')} variant="primary">Reserve a table</Button>
+      <Button href={withBase('/menu')} variant="ghost">See the menu</Button>
+    </div>
+  </Section>
+</BaseLayout>

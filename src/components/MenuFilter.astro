@@ -1,0 +1,52 @@
+---
+interface Props {
+  tags: string[];
+}
+const { tags } = Astro.props;
+---
+
+<div class="menu-filter rounded-card bg-cream-50 p-4 shadow-soft ring-1 ring-charcoal/10">
+  <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+    <label class="flex-1">
+      <span class="sr-only">Search the menu</span>
+      <input
+        type="search"
+        id="menu-search"
+        placeholder="Search dishes…"
+        autocomplete="off"
+        class="w-full rounded-pill border-0 bg-cream px-4 py-2.5 text-charcoal ring-1 ring-charcoal/15 placeholder:text-charcoal-muted focus:ring-2 focus:ring-terracotta-600"
+      />
+    </label>
+    <button
+      type="button"
+      id="menu-clear"
+      class="hidden shrink-0 rounded-pill px-4 py-2 text-sm font-semibold text-terracotta-700 ring-1 ring-terracotta-300 hover:bg-terracotta-50"
+    >
+      Clear filters
+    </button>
+  </div>
+
+  {
+    tags.length > 0 && (
+      <div class="mt-4">
+        <p class="sr-only" id="tag-filter-label">
+          Filter by tag
+        </p>
+        <div class="flex flex-wrap gap-2" role="group" aria-labelledby="tag-filter-label">
+          {tags.map((t) => (
+            <button
+              type="button"
+              class="tag-chip rounded-pill bg-cream px-3 py-1 text-sm font-medium capitalize text-charcoal-light ring-1 ring-charcoal/15 transition-colors hover:bg-terracotta-50 aria-pressed:bg-terracotta-600 aria-pressed:text-cream-50 aria-pressed:ring-terracotta-600"
+              data-tag={t}
+              aria-pressed="false"
+            >
+              {t.replace(/-/g, ' ')}
+            </button>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  <p class="mt-4 text-sm text-charcoal-muted" role="status" aria-live="polite" id="menu-result-count"></p>
+</div>
