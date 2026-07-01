@@ -7,6 +7,7 @@ interface Props {
   tone?: 'cream' | 'white' | 'olive' | 'charcoal';
   class?: string;
   innerClass?: string;
+  reveal?: boolean;
 }
 
 const {
@@ -16,6 +17,7 @@ const {
   tone = 'cream',
   class: className = '',
   innerClass = '',
+  reveal = true,
 } = Astro.props;
 
 const tones = {
@@ -36,7 +38,7 @@ const inner = ['mx-auto px-5 sm:px-8', widths[width as keyof typeof widths], inn
 ---
 
 <Tag id={id} class={outer}>
-  <div class={inner}>
+  <div class={inner} data-reveal={reveal ? '' : undefined}>
     <slot />
   </div>
 </Tag>

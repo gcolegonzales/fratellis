@@ -42,14 +42,15 @@ const rows = site.hours.map((h) => ({
 </style>
 
 <script>
-  // Highlight today's row using the restaurant's timezone.
-  const table = document.querySelector<HTMLTableElement>('.hours-table');
-  if (table) {
-    const tz = table.dataset.tz || 'America/Chicago';
-    const weekday = new Intl.DateTimeFormat('en-US', { timeZone: tz, weekday: 'short' }).format(
-      new Date(),
-    );
-    const row = table.querySelector(`tr[data-day="${weekday}"]`);
-    row?.setAttribute('data-today', 'true');
+  // Highlight today's row using the restaurant's timezone (re-runs per navigation).
+  function highlightToday() {
+    for (const table of document.querySelectorAll<HTMLTableElement>('.hours-table')) {
+      const tz = table.dataset.tz || 'America/Chicago';
+      const weekday = new Intl.DateTimeFormat('en-US', { timeZone: tz, weekday: 'short' }).format(
+        new Date(),
+      );
+      table.querySelector(`tr[data-day="${weekday}"]`)?.setAttribute('data-today', 'true');
+    }
   }
+  document.addEventListener('astro:page-load', highlightToday);
 </script>

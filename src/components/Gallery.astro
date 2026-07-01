@@ -60,23 +60,27 @@ const { images } = Astro.props;
 </div>
 
 <script>
-  const items = Array.from(document.querySelectorAll<HTMLAnchorElement>('.gallery-item'));
-  const box = document.getElementById('lightbox');
-  const img = document.getElementById('lightbox-img') as HTMLImageElement | null;
-  const caption = document.getElementById('lightbox-caption');
-  const closeBtn = document.getElementById('lightbox-close');
-  const prevBtn = document.getElementById('lightbox-prev');
-  const nextBtn = document.getElementById('lightbox-next');
-
+  // Re-binds per navigation (Astro View Transitions); queries live DOM so the
+  // document-level key handler stays correct across page swaps.
   let current = 0;
   let lastFocused: HTMLElement | null = null;
 
+  const items = () => Array.from(document.querySelectorAll<HTMLAnchorElement>('.gallery-item'));
+  const box = () => document.getElementById('lightbox');
+  const isOpen = () => {
+    const b = box();
+    return !!b && !b.classList.contains('hidden');
+  };
+
   function show(index: number) {
-    if (!items.length) return;
-    current = (index + items.length) % items.length;
-    const el = items[current];
+    const list = items();
+    if (!list.length) return;
+    current = (index + list.length) % list.length;
+    const el = list[current];
     const src = el.getAttribute('href') || '';
     const image = el.querySelector('img');
+    const img = document.getElementById('lightbox-img') as HTMLImageElement | null;
+    const caption = document.getElementById('lightbox-caption');
     if (img) {
       img.src = src;
       img.alt = image?.alt || '';
@@ -85,48 +89,56 @@ const { images } = Astro.props;
   }
 
   function open(index: number) {
-    if (!box) return;
+    const b = box();
+    if (!b) return;
     lastFocused = document.activeElement as HTMLElement;
     show(index);
-    box.classList.remove('hidden');
-    box.classList.add('flex');
-    closeBtn?.focus();
+    b.classList.remove('hidden');
+    b.classList.add('flex');
+    document.getElementById('lightbox-close')?.focus();
     document.body.style.overflow = 'hidden';
   }
 
   function close() {
-    if (!box) return;
-    box.classList.add('hidden');
-    box.classList.remove('flex');
+    const b = box();
+    if (!b) return;
+    b.classList.add('hidden');
+    b.classList.remove('flex');
     document.body.style.overflow = '';
     lastFocused?.focus();
   }
 
-  items.forEach((el, i) =>
-    el.addEventListener('click', (e) => {
-      e.preventDefault();
-      open(i);
-    }),
-  );
-  closeBtn?.addEventListener('click', close);
-  prevBtn?.addEventListener('click', () => show(current - 1));
-  nextBtn?.addEventListener('click', () => show(current + 1));
-  box?.addEventListener('click', (e) => {
-    if (e.target === box) close();
-  });
+  function bindGallery() {
+    items().forEach((el, i) =>
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        open(i);
+      }),
+    );
+    document.getElementById('lightbox-close')?.addEventListener('click', close);
+    document.getElementById('lightbox-prev')?.addEventListener('click', () => show(current - 1));
+    document.getElementById('lightbox-next')?.addEventListener('click', () => show(current + 1));
+    const b = box();
+    b?.addEventListener('click', (e) => {
+      if (e.target === b) close();
+    });
+  }
 
   document.addEventListener('keydown', (e) => {
-    if (box?.classList.contains('hidden')) return;
+    if (!isOpen()) return;
     if (e.key === 'Escape') close();
     else if (e.key === 'ArrowLeft') show(current - 1);
     else if (e.key === 'ArrowRight') show(current + 1);
     else if (e.key === 'Tab') {
-      // simple focus trap across the control buttons
-      const focusables = [closeBtn, prevBtn, nextBtn].filter(Boolean) as HTMLElement[];
+      const focusables = ['lightbox-close', 'lightbox-prev', 'lightbox-next']
+        .map((id) => document.getElementById(id))
+        .filter(Boolean) as HTMLElement[];
       const idx = focusables.indexOf(document.activeElement as HTMLElement);
       e.preventDefault();
       const next = e.shiftKey ? idx - 1 : idx + 1;
       focusables[(next + focusables.length) % focusables.length]?.focus();
     }
   });
+
+  document.addEventListener('astro:page-load', bindGallery);
 </script>

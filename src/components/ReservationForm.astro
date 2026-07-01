@@ -82,6 +82,7 @@ const errorClass = 'mt-1 text-sm text-terracotta-700';
   import { validateReservation, hasErrors, type Errors } from '../lib/form';
   import { submit } from '../lib/submit';
 
+  function initReservationForm() {
   const form = document.getElementById('reservation-form') as HTMLFormElement | null;
   const confirm = document.getElementById('reservation-confirm');
   const confirmMsg = document.getElementById('reservation-confirm-msg');
@@ -158,4 +159,7 @@ const errorClass = 'mt-1 text-sm text-terracotta-700';
       alert('Something went wrong sending your request. Please try again or call us.');
     }
   });
+  }
+
+  document.addEventListener('astro:page-load', initReservationForm);
 </script>

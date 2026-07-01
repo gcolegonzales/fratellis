@@ -13,7 +13,7 @@ const search = `${item.name} ${item.description ?? ''}`.toLowerCase();
 
 <article
   class:list={[
-    'dish-card flex flex-col rounded-card bg-cream-50 p-5 shadow-soft ring-1 ring-charcoal/5 transition',
+    'dish-card hover-lift flex flex-col rounded-card bg-cream-50 p-5 shadow-soft ring-1 ring-charcoal/5 hover:shadow-lift',
     item.featured && 'ring-gold-400/60',
   ]}
   data-dish-id={item.id}

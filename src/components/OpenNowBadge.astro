@@ -40,16 +40,19 @@ const initial = openStatus(site.hours, new Date(), site.timezone);
 
 <script>
   import { openStatus } from '../lib/hours';
-  for (const el of document.querySelectorAll<HTMLElement>('.open-now-badge')) {
-    try {
-      const hours = JSON.parse(el.dataset.hours || '[]');
-      const tz = el.dataset.tz || 'America/Chicago';
-      const status = openStatus(hours, new Date(), tz);
-      el.setAttribute('data-open', String(status.open));
-      const label = el.querySelector('.badge-label');
-      if (label) label.textContent = status.label;
-    } catch {
-      /* keep the server-rendered fallback */
+  function refreshBadges() {
+    for (const el of document.querySelectorAll<HTMLElement>('.open-now-badge')) {
+      try {
+        const hours = JSON.parse(el.dataset.hours || '[]');
+        const tz = el.dataset.tz || 'America/Chicago';
+        const status = openStatus(hours, new Date(), tz);
+        el.setAttribute('data-open', String(status.open));
+        const label = el.querySelector('.badge-label');
+        if (label) label.textContent = status.label;
+      } catch {
+        /* keep the server-rendered fallback */
+      }
     }
   }
+  document.addEventListener('astro:page-load', refreshBadges);
 </script>

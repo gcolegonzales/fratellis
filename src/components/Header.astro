@@ -115,37 +115,37 @@ const current = Astro.url.pathname;
 </header>
 
 <script>
-  const toggle = document.getElementById('nav-toggle');
-  const panel = document.getElementById('mobile-nav');
-  const iconOpen = document.getElementById('nav-icon-open');
-  const iconClose = document.getElementById('nav-icon-close');
-
+  // Re-binds on every navigation (Astro View Transitions) via astro:page-load.
   function setOpen(open: boolean) {
+    const toggle = document.getElementById('nav-toggle');
+    const panel = document.getElementById('mobile-nav');
     if (!toggle || !panel) return;
     toggle.setAttribute('aria-expanded', String(open));
     panel.hidden = !open;
-    iconOpen?.classList.toggle('hidden', open);
-    iconClose?.classList.toggle('hidden', !open);
-    if (open) {
-      const firstLink = panel.querySelector<HTMLAnchorElement>('a');
-      firstLink?.focus();
-    }
+    document.getElementById('nav-icon-open')?.classList.toggle('hidden', open);
+    document.getElementById('nav-icon-close')?.classList.toggle('hidden', !open);
+    if (open) panel.querySelector<HTMLAnchorElement>('a')?.focus();
   }
 
-  toggle?.addEventListener('click', () => {
-    setOpen(toggle.getAttribute('aria-expanded') !== 'true');
-  });
+  function bindNav() {
+    const toggle = document.getElementById('nav-toggle');
+    if (!toggle) return;
+    toggle.addEventListener('click', () =>
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true'),
+    );
+  }
 
+  // Document/window listeners bound once (module runs once); they query live DOM.
   document.addEventListener('keydown', (e) => {
+    const toggle = document.getElementById('nav-toggle');
     if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
       setOpen(false);
       toggle.focus();
     }
   });
-
-  // Close the panel if the viewport grows to desktop.
-  const mq = window.matchMedia('(min-width: 1024px)');
-  mq.addEventListener('change', (e) => {
+  window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => {
     if (e.matches) setOpen(false);
   });
+
+  document.addEventListener('astro:page-load', bindNav);
 </script>

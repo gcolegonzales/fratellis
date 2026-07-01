@@ -77,6 +77,7 @@ const errorClass = 'mt-1 text-sm text-terracotta-700';
   import { validateCatering, hasErrors, type Errors } from '../lib/form';
   import { submit } from '../lib/submit';
 
+  function initCateringForm() {
   const form = document.getElementById('catering-form') as HTMLFormElement | null;
   const confirm = document.getElementById('catering-confirm');
   const confirmMsg = document.getElementById('catering-confirm-msg');
@@ -151,4 +152,7 @@ const errorClass = 'mt-1 text-sm text-terracotta-700';
       alert('Something went wrong sending your inquiry. Please try again or call us.');
     }
   });
+  }
+
+  document.addEventListener('astro:page-load', initCateringForm);
 </script>

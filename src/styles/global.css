@@ -68,6 +68,56 @@
   }
 }
 
+@layer utilities {
+  /* Scroll-reveal (ADR 0003). Content is visible by default; only when JS marks
+     the document `.reveal-active` do un-revealed elements start hidden, so no-JS
+     users never lose content. */
+  [data-reveal] {
+    transition:
+      opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal-active [data-reveal]:not(.is-visible) {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  /* Optional stagger for grids of revealed items. */
+  [data-reveal-delay='1'] {
+    transition-delay: 0.08s;
+  }
+  [data-reveal-delay='2'] {
+    transition-delay: 0.16s;
+  }
+  [data-reveal-delay='3'] {
+    transition-delay: 0.24s;
+  }
+
+  /* Shared hover-lift for cards. */
+  .hover-lift {
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* Astro View Transitions: a gentle cross-page fade. */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.28s;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -78,5 +128,15 @@
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+  }
+  /* Never hide content for reveal when motion is reduced. */
+  .reveal-active [data-reveal]:not(.is-visible) {
+    opacity: 1;
+    transform: none;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

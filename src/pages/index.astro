@@ -1,49 +1,80 @@
 ---
-import { getEntry } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import Button from '../components/Button.astro';
 import Hero from '../components/Hero.astro';
-import DishCard from '../components/DishCard.astro';
 import HoursTable from '../components/HoursTable.astro';
 import OpenNowBadge from '../components/OpenNowBadge.astro';
 import Testimonials from '../components/Testimonials.astro';
 import { withBase } from '../lib/base';
 import { site, formatAddress, directionsUrl } from '../lib/site';
-import type { MenuItem } from '../lib/menu';
-
-const food = await getEntry('menu', 'food');
-const featured = (food.data.items as MenuItem[]).filter((i) => i.featured).slice(0, 4);
 ---
 
 <BaseLayout>
   <Hero />
 
-  <!-- Signature dishes -->
+  <!-- Ambiance / story — mood first, not menu -->
   <Section tone="white">
-    <div class="flex flex-wrap items-end justify-between gap-4">
-      <div class="max-w-prose">
-        <p class="eyebrow">Guest favorites</p>
-        <h2 class="mt-2">Signature dishes</h2>
-        <p class="prose-warm mt-3">A few of the plates our regulars can't stop ordering.</p>
+    <div class="grid items-center gap-12 lg:grid-cols-2">
+      <div class="max-w-prose" data-reveal>
+        <p class="eyebrow">Benvenuti</p>
+        <h2 class="mt-2">A little corner of Italy in Prairieville</h2>
+        <p class="prose-warm mt-5">
+          Since {site.established}, Fratelli's has been a family-owned kitchen where the sauce
+          simmers all day and every plate is made to order. Step in and you're greeted by the aroma
+          of garlic and fresh basil — and treated like part of the family.
+        </p>
+        <p class="prose-warm mt-4">
+          It's the kind of place you come for a quiet dinner and leave already planning your next
+          visit.
+        </p>
+        <div class="mt-8">
+          <Button href={withBase('/about')} variant="ghost">Our story</Button>
+        </div>
       </div>
-      <Button href={withBase('/menu')} variant="ghost">See the full menu</Button>
-    </div>
-    <div class="mt-8 grid gap-4 sm:grid-cols-2">
-      {featured.map((item) => <DishCard item={item} />)}
+      <figure class="overflow-hidden rounded-card shadow-lift ring-1 ring-charcoal/10" data-reveal>
+        <img
+          src={withBase('/images/gallery/dining-room.svg')}
+          alt="The warm, candlelit dining room at Fratelli's"
+          width="800"
+          height="600"
+          class="h-full w-full object-cover"
+        />
+      </figure>
     </div>
   </Section>
 
-  <!-- Hours & location strip -->
+  <!-- Understated invitation to the menu (no dish catalog on the home page) -->
+  <Section tone="charcoal" innerClass="text-center" reveal={false}>
+    <div data-reveal>
+      <p class="eyebrow text-gold-400">On the table tonight</p>
+      <h2 class="mt-2 text-cream-50">Fresh pasta, wood-fired pizza, and Italian classics</h2>
+      <p class="mx-auto mt-4 max-w-prose text-cream-100/85">
+        From hand-filled ravioli to veal marsala and a wine list to match. Come hungry.
+      </p>
+      <div class="mt-7 flex justify-center gap-3">
+        <Button href={withBase('/menu')} class="bg-cream-50 text-charcoal hover:bg-cream-100"
+          >Explore the menu →</Button
+        >
+        <Button
+          href={withBase('/from-the-bar')}
+          variant="ghost"
+          class="text-cream-50 ring-cream-100/40 hover:bg-cream-50/10">From the bar</Button
+        >
+      </div>
+    </div>
+  </Section>
+
+  <!-- Plan your visit -->
   <Section>
     <div class="grid gap-8 rounded-card bg-cream-50 p-8 shadow-soft ring-1 ring-charcoal/10 md:grid-cols-2">
       <div>
-        <p class="eyebrow">Visit us</p>
-        <h2 class="mt-2 text-2xl">Come hungry</h2>
+        <p class="eyebrow">Plan your visit</p>
+        <h2 class="mt-2 text-2xl">We'd love to have you</h2>
         <div class="mt-4"><OpenNowBadge /></div>
         <address class="prose-warm mt-4 not-italic">{formatAddress()}</address>
         <div class="mt-5 flex flex-wrap gap-3">
-          <Button href={`tel:${site.phoneHref}`} variant="primary">Call {site.phone}</Button>
+          <Button href={withBase('/reservations')} variant="primary">Reserve a table</Button>
           <Button href={directionsUrl()} variant="ghost">Get directions</Button>
         </div>
       </div>
@@ -54,33 +85,32 @@ const featured = (food.data.items as MenuItem[]).filter((i) => i.featured).slice
     </div>
   </Section>
 
-  <!-- Social proof -->
+  <!-- Quiet social proof -->
   <Section tone="white">
-    <div class="flex flex-wrap items-end justify-between gap-4">
-      <div class="max-w-prose">
-        <p class="eyebrow">Kind words</p>
-        <h2 class="mt-2">Loved by the neighborhood</h2>
-      </div>
-      <Button href={withBase('/testimonials')} variant="ghost">Read more reviews</Button>
+    <div class="mx-auto max-w-prose text-center" data-reveal>
+      <p class="eyebrow">Kind words</p>
+      <h2 class="mt-2">Loved by the neighborhood</h2>
     </div>
     <div class="mt-8">
-      <Testimonials limit={3} />
+      <Testimonials limit={2} columns={2} />
+    </div>
+    <div class="mt-8 text-center" data-reveal>
+      <Button href={withBase('/testimonials')} variant="ghost">Read more reviews</Button>
     </div>
   </Section>
 
-  <!-- Catering teaser -->
-  <Section tone="olive" innerClass="text-center">
-    <h2 class="text-cream-50">Planning an event?</h2>
-    <p class="mx-auto mt-3 max-w-prose text-cream-100/90">
-      From office lunches to family celebrations, let Fratelli's cater your next gathering.
-    </p>
-    <div class="mt-6 flex justify-center gap-3">
-      <Button href={withBase('/catering')} class="bg-cream-50 text-charcoal hover:bg-cream-100">
-        Catering inquiry
-      </Button>
-      <Button href={withBase('/reservations')} variant="ghost" class="text-cream-50 ring-cream-100/40 hover:bg-cream-50/10">
-        Reserve a table
-      </Button>
+  <!-- Catering invitation -->
+  <Section tone="olive" innerClass="text-center" reveal={false}>
+    <div data-reveal>
+      <h2 class="text-cream-50">Planning an event?</h2>
+      <p class="mx-auto mt-3 max-w-prose text-cream-100/90">
+        From office lunches to family celebrations, let Fratelli's cater your next gathering.
+      </p>
+      <div class="mt-6 flex justify-center">
+        <Button href={withBase('/catering')} class="bg-cream-50 text-charcoal hover:bg-cream-100"
+          >Catering inquiry</Button
+        >
+      </div>
     </div>
   </Section>
 </BaseLayout>

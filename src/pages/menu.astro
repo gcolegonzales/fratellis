@@ -68,6 +68,7 @@ const catName = (id: string) => categories.find((c) => c.id === id)?.name ?? id;
   <script>
     import { filterItems, type MenuItem } from '../lib/menu';
 
+    function initMenu() {
     const dataEl = document.getElementById('menu-data');
     const items: MenuItem[] = dataEl ? JSON.parse(dataEl.textContent || '[]') : [];
     const search = document.getElementById('menu-search') as HTMLInputElement | null;
@@ -146,5 +147,8 @@ const catName = (id: string) => categories.find((c) => c.id === id)?.name ?? id;
       { rootMargin: '-40% 0px -55% 0px' },
     );
     document.querySelectorAll('[data-category-section]').forEach((s) => observer.observe(s));
+    }
+
+    document.addEventListener('astro:page-load', initMenu);
   </script>
 </BaseLayout>
