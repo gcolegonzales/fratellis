@@ -1,0 +1,27 @@
+{
+  "name": "Fratelli's Italian Grille",
+  "tagline": "Authentic Italian, made to order in Prairieville",
+  "established": 2017,
+  "cuisine": "Italian",
+  "priceRange": "$$",
+  "phone": "(225) 313-4704",
+  "phoneHref": "+12253134704",
+  "address": {
+    "street": "17588 Airline Hwy",
+    "city": "Prairieville",
+    "state": "LA",
+    "zip": "70769"
+  },
+  "mapQuery": "Fratelli's Italian Grille, 17588 Airline Hwy, Prairieville, LA 70769",
+  "timezone": "America/Chicago",
+  "hours": [
+    { "day": "Mon", "open": null, "close": null },
+    { "day": "Tue", "open": "11:00", "close": "21:00" },
+    { "day": "Wed", "open": "11:00", "close": "21:00" },
+    { "day": "Thu", "open": "11:00", "close": "21:00" },
+    { "day": "Fri", "open": "11:00", "close": "22:00" },
+    { "day": "Sat", "open": "11:00", "close": "22:00" },
+    { "day": "Sun", "open": "11:00", "close": "21:00" }
+  ],
+  "social": {}
+}

@@ -1,0 +1,106 @@
+{
+  "categories": [
+    { "id": "house-wine", "name": "House Wine" },
+    { "id": "sparkling", "name": "Sparkling" },
+    { "id": "chardonnay", "name": "Chardonnay" },
+    { "id": "sauvignon-blanc", "name": "Sauvignon Blanc" },
+    { "id": "interesting-whites", "name": "Interesting Whites" },
+    { "id": "italian-whites", "name": "Italian Whites" },
+    { "id": "merlot", "name": "Merlot" },
+    { "id": "cabernet", "name": "Cabernet Sauvignon" },
+    { "id": "pinot-noir", "name": "Pinot Noir" },
+    { "id": "malbec", "name": "Malbec" },
+    { "id": "zinfandel", "name": "Zinfandel" },
+    { "id": "interesting-reds", "name": "Interesting Reds" },
+    { "id": "italian-reds", "name": "Italian Reds" },
+    { "id": "beer-domestic", "name": "Domestic Beer" },
+    { "id": "beer-import", "name": "Import Beer" },
+    { "id": "cocktails", "name": "Specialty Cocktails" }
+  ],
+  "items": [
+    { "id": "canyon-road", "name": "Canyon Road", "description": "Cabernet, Chardonnay, Merlot, Pinot Noir, Pinot Grigio, Sauvignon Blanc, White Zinfandel, or Moscato.", "category": "house-wine", "variants": [{ "label": "Glass", "price": 6.5 }, { "label": "Bottle", "price": 24.0 }] },
+    { "id": "voga-moscato", "name": "Voga Moscato", "category": "house-wine", "variants": [{ "label": "Glass", "price": 7.5 }, { "label": "Bottle", "price": 26.0 }] },
+    { "id": "banfi-chianti", "name": "Banfi Chianti Superiore", "category": "house-wine", "variants": [{ "label": "Glass", "price": 7.5 }, { "label": "Bottle", "price": 30.0 }] },
+
+    { "id": "freixenet-brut", "name": "Freixenet Brut (187 mL)", "category": "sparkling", "variants": [{ "label": "Glass", "price": 7.5 }] },
+    { "id": "lamberti-prosecco", "name": "Lamberti Prosecco", "category": "sparkling", "variants": [{ "label": "Glass", "price": 7.5 }, { "label": "Bottle", "price": 28.0 }] },
+    { "id": "lamarca-prosecco", "name": "La Marca Prosecco", "category": "sparkling", "variants": [{ "label": "Glass", "price": 8.0 }, { "label": "Bottle", "price": 30.0 }] },
+    { "id": "mia-dolcea", "name": "Mia Dolcea Moscato d'Asti", "category": "sparkling", "variants": [{ "label": "Glass", "price": 9.0 }, { "label": "Bottle", "price": 30.0 }] },
+    { "id": "gloria-ferrer-brut", "name": "Gloria Ferrer Brut", "category": "sparkling", "variants": [{ "label": "Glass", "price": 10.0 }, { "label": "Bottle", "price": 35.0 }] },
+    { "id": "gerard-bertrand-rose", "name": "Gérard Bertrand Rosé Crémant", "category": "sparkling", "variants": [{ "label": "Bottle", "price": 48.0 }] },
+
+    { "id": "20-gauge-chard", "name": "20 Gauge", "region": "California", "category": "chardonnay", "variants": [{ "label": "Glass", "price": 8.0 }, { "label": "Bottle", "price": 30.0 }] },
+    { "id": "frei-brothers-chard", "name": "Frei Brothers", "region": "Russian River", "category": "chardonnay", "variants": [{ "label": "Glass", "price": 9.0 }, { "label": "Bottle", "price": 34.0 }] },
+    { "id": "charles-krug-chard", "name": "Charles Krug", "region": "Napa Valley", "category": "chardonnay", "variants": [{ "label": "Glass", "price": 11.0 }, { "label": "Bottle", "price": 40.0 }] },
+    { "id": "la-crema-chard", "name": "La Crema", "region": "Sonoma Coast", "category": "chardonnay", "variants": [{ "label": "Bottle", "price": 38.0 }] },
+    { "id": "twenty-rows-chard", "name": "Twenty Rows", "region": "Napa Valley", "category": "chardonnay", "variants": [{ "label": "Bottle", "price": 45.0 }] },
+    { "id": "rombauer-chard", "name": "Rombauer", "region": "Carneros", "category": "chardonnay", "variants": [{ "label": "Bottle", "price": 65.0 }] },
+
+    { "id": "dry-creek-fume", "name": "Dry Creek Fumé Blanc", "region": "Sonoma County", "category": "sauvignon-blanc", "variants": [{ "label": "Glass", "price": 8.0 }, { "label": "Bottle", "price": 30.0 }] },
+    { "id": "girard-sb", "name": "Girard", "region": "Napa Valley", "category": "sauvignon-blanc", "variants": [{ "label": "Glass", "price": 10.0 }, { "label": "Bottle", "price": 35.0 }] },
+    { "id": "rombauer-sb", "name": "Rombauer", "region": "Napa Valley", "category": "sauvignon-blanc", "variants": [{ "label": "Glass", "price": 14.0 }, { "label": "Bottle", "price": 42.0 }] },
+
+    { "id": "nxnw-riesling", "name": "North by Northwest Riesling", "region": "Horse Heaven Hills", "category": "interesting-whites", "variants": [{ "label": "Glass", "price": 7.5 }, { "label": "Bottle", "price": 26.0 }] },
+    { "id": "dry-creek-chenin", "name": "Dry Creek Chenin Blanc", "category": "interesting-whites", "variants": [{ "label": "Glass", "price": 8.5 }, { "label": "Bottle", "price": 28.0 }] },
+    { "id": "rudi-wiest-riesling", "name": "Rudi Wiest Dry Riesling", "category": "interesting-whites", "variants": [{ "label": "Glass", "price": 8.0 }, { "label": "Bottle", "price": 28.0 }] },
+    { "id": "monchhof-riesling", "name": "Mönchhof Estate Riesling", "category": "interesting-whites", "variants": [{ "label": "Glass", "price": 10.0 }, { "label": "Bottle", "price": 35.0 }] },
+
+    { "id": "cadonini-pg", "name": "Cadonini Pinot Grigio", "category": "italian-whites", "variants": [{ "label": "Glass", "price": 6.5 }, { "label": "Bottle", "price": 24.0 }] },
+    { "id": "stemmari-pg", "name": "Stemmari Pinot Grigio", "region": "Sicily", "category": "italian-whites", "variants": [{ "label": "Glass", "price": 7.5 }, { "label": "Bottle", "price": 28.0 }] },
+    { "id": "maso-canali-pg", "name": "Maso Canali Pinot Grigio", "region": "Trentino", "category": "italian-whites", "variants": [{ "label": "Glass", "price": 9.0 }, { "label": "Bottle", "price": 34.0 }] },
+    { "id": "davinci-pg", "name": "DaVinci Pinot Grigio", "region": "Trentino-Alto Adige", "category": "italian-whites", "variants": [{ "label": "Glass", "price": 9.0 }, { "label": "Bottle", "price": 34.0 }] },
+    { "id": "santa-margherita-pg", "name": "Santa Margherita Pinot Grigio", "category": "italian-whites", "variants": [{ "label": "Bottle", "price": 45.0 }] },
+
+    { "id": "ca-momi-merlot", "name": "Ca' Momi", "region": "Napa Valley", "category": "merlot", "variants": [{ "label": "Glass", "price": 9.0 }, { "label": "Bottle", "price": 34.0 }] },
+    { "id": "alexander-valley-merlot", "name": "Alexander Valley", "region": "California", "category": "merlot", "variants": [{ "label": "Glass", "price": 10.0 }, { "label": "Bottle", "price": 35.0 }] },
+    { "id": "charles-krug-merlot", "name": "Charles Krug", "region": "Napa Valley", "category": "merlot", "variants": [{ "label": "Bottle", "price": 40.0 }] },
+
+    { "id": "jam-cellars-cab", "name": "JaM Cellars", "region": "California", "category": "cabernet", "variants": [{ "label": "Glass", "price": 10.0 }, { "label": "Bottle", "price": 35.0 }] },
+    { "id": "joel-gott-cab", "name": "Joel Gott", "region": "California", "category": "cabernet", "variants": [{ "label": "Glass", "price": 10.0 }, { "label": "Bottle", "price": 38.0 }] },
+    { "id": "bside-cab", "name": "B Side", "region": "North Coast", "category": "cabernet", "variants": [{ "label": "Glass", "price": 11.0 }, { "label": "Bottle", "price": 38.0 }] },
+    { "id": "nxnw-cab", "name": "North by Northwest", "region": "Columbia Valley", "category": "cabernet", "variants": [{ "label": "Glass", "price": 12.0 }, { "label": "Bottle", "price": 40.0 }] },
+    { "id": "twenty-rows-cab", "name": "Twenty Rows", "region": "North Coast", "category": "cabernet", "variants": [{ "label": "Glass", "price": 15.0 }, { "label": "Bottle", "price": 45.0 }] },
+    { "id": "justin-cab", "name": "Justin Vineyards", "region": "Paso Robles", "category": "cabernet", "variants": [{ "label": "Bottle", "price": 48.0 }] },
+    { "id": "louis-martini-cab", "name": "Louis Martini", "category": "cabernet", "variants": [{ "label": "Bottle", "price": 50.0 }] },
+    { "id": "faust-cab", "name": "Faust", "region": "Napa Valley", "category": "cabernet", "variants": [{ "label": "Bottle", "price": 75.0 }] },
+    { "id": "caymus-cab", "name": "Caymus", "region": "Napa Valley", "category": "cabernet", "variants": [{ "label": "Bottle", "price": 125.0 }] },
+
+    { "id": "stemmari-pn", "name": "Stemmari", "region": "Sicily", "category": "pinot-noir", "variants": [{ "label": "Glass", "price": 7.5 }, { "label": "Bottle", "price": 28.0 }] },
+    { "id": "landmark-pn", "name": "Landmark Overlook", "region": "California", "category": "pinot-noir", "variants": [{ "label": "Glass", "price": 10.0 }, { "label": "Bottle", "price": 35.0 }] },
+    { "id": "la-crema-pn", "name": "La Crema", "region": "Sonoma Coast", "category": "pinot-noir", "variants": [{ "label": "Glass", "price": 10.5 }, { "label": "Bottle", "price": 38.0 }] },
+    { "id": "king-estate-pn", "name": "King Estate", "region": "Willamette Valley", "category": "pinot-noir", "variants": [{ "label": "Bottle", "price": 50.0 }] },
+
+    { "id": "antigal-malbec", "name": "Antigal Uno", "region": "Mendoza", "category": "malbec", "variants": [{ "label": "Glass", "price": 7.5 }, { "label": "Bottle", "price": 28.0 }] },
+    { "id": "gascon-malbec", "name": "Gascón Reserva", "region": "Mendoza", "category": "malbec", "variants": [{ "label": "Glass", "price": 10.0 }, { "label": "Bottle", "price": 35.0 }] },
+    { "id": "don-david-malbec", "name": "El Esteco Don David", "region": "Salta", "category": "malbec", "variants": [{ "label": "Glass", "price": 10.0 }, { "label": "Bottle", "price": 35.0 }] },
+
+    { "id": "pedroncelli-zin", "name": "Pedroncelli Mother Clone", "region": "Dry Creek Valley", "category": "zinfandel", "variants": [{ "label": "Glass", "price": 10.0 }, { "label": "Bottle", "price": 35.0 }] },
+    { "id": "dry-creek-zin", "name": "Dry Creek Heritage Vines", "region": "California", "category": "zinfandel", "variants": [{ "label": "Glass", "price": 12.0 }, { "label": "Bottle", "price": 40.0 }] },
+    { "id": "earthquake-zin", "name": "Earthquake", "region": "California", "category": "zinfandel", "variants": [{ "label": "Bottle", "price": 60.0 }] },
+
+    { "id": "apothic-red", "name": "Apothic Red", "region": "California", "category": "interesting-reds", "variants": [{ "label": "Glass", "price": 7.5 }, { "label": "Bottle", "price": 28.0 }] },
+    { "id": "las-rocas", "name": "Las Rocas Garnacha", "region": "Spain", "category": "interesting-reds", "variants": [{ "label": "Glass", "price": 9.0 }, { "label": "Bottle", "price": 34.0 }] },
+    { "id": "saved-red", "name": "Saved", "region": "California", "category": "interesting-reds", "variants": [{ "label": "Glass", "price": 11.0 }, { "label": "Bottle", "price": 40.0 }] },
+    { "id": "the-prisoner", "name": "The Prisoner", "region": "Napa Valley", "category": "interesting-reds", "variants": [{ "label": "Bottle", "price": 70.0 }] },
+
+    { "id": "frescobaldi-remole", "name": "Frescobaldi Rèmole", "region": "Toscana", "category": "italian-reds", "variants": [{ "label": "Glass", "price": 7.5 }, { "label": "Bottle", "price": 28.0 }] },
+    { "id": "davinci-chianti", "name": "DaVinci Chianti", "category": "italian-reds", "variants": [{ "label": "Glass", "price": 9.0 }, { "label": "Bottle", "price": 34.0 }] },
+    { "id": "ruffino-ducale", "name": "Ruffino Riserva Ducale Chianti", "category": "italian-reds", "variants": [{ "label": "Glass", "price": 13.0 }, { "label": "Bottle", "price": 45.0 }] },
+    { "id": "ruffino-ducale-oro", "name": "Ruffino Riserva Ducale Oro Chianti", "category": "italian-reds", "variants": [{ "label": "Bottle", "price": 60.0 }] },
+    { "id": "pasqua-amarone", "name": "Pasqua Amarone", "region": "Veneto", "category": "italian-reds", "variants": [{ "label": "Bottle", "price": 60.0 }] },
+
+    { "id": "beer-domestic", "name": "Domestic", "description": "Bud Light, Budweiser, Coors Light, Miller Lite, Michelob Ultra, Bud Light Lime.", "category": "beer-domestic", "variants": [{ "price": 3.75 }] },
+    { "id": "beer-import", "name": "Import", "description": "Heineken, Corona, Dos Equis, Stella Artois, Yuengling, Blue Moon, Shiner Bock, Sam Adams, Abita Amber, Peroni.", "category": "beer-import", "variants": [{ "price": 4.25 }] },
+
+    { "id": "italian-margarita", "name": "Italian Margarita", "description": "Tequila, amaretto, and triple sec.", "category": "cocktails", "variants": [{ "price": 9.5 }] },
+    { "id": "margarita", "name": "Margarita", "description": "Regular or strawberry — tequila, sweet and sour, triple sec.", "category": "cocktails", "variants": [{ "price": 6.5 }] },
+    { "id": "bellini", "name": "Bellini", "description": "Sparkling wine, peach purée, and vodka.", "category": "cocktails", "variants": [{ "price": 8.5 }] },
+    { "id": "cosmopolitan", "name": "Cosmopolitan", "description": "Vodka, cranberry, and sweet and sour.", "category": "cocktails", "variants": [{ "price": 8.5 }] },
+    { "id": "manhattan", "name": "Manhattan", "description": "Whiskey, sweet vermouth, and bitters.", "category": "cocktails", "variants": [{ "price": 8.5 }] },
+    { "id": "old-fashioned", "name": "Old Fashioned", "description": "Whiskey, orange, cherry, and bitters.", "category": "cocktails", "variants": [{ "price": 8.5 }] },
+    { "id": "limoncello-martini", "name": "Limoncello Martini", "description": "Real limoncello and vodka.", "category": "cocktails", "variants": [{ "price": 8.5 }] },
+    { "id": "lemon-drop", "name": "Lemon Drop Martini", "description": "Vodka, triple sec, and lemon juice.", "category": "cocktails", "variants": [{ "price": 8.5 }] },
+    { "id": "chocolate-martini", "name": "Chocolate Martini", "description": "Vodka and chocolate liqueur.", "category": "cocktails", "variants": [{ "price": 8.5 }] },
+    { "id": "bloody-mary", "name": "Bloody Mary", "description": "Premium vodka, tomato juice, and spices.", "category": "cocktails", "variants": [{ "price": 8.5 }] }
+  ]
+}
