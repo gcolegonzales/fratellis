@@ -17,8 +17,8 @@
     "T-007": { "status": "done", "model": "sonnet", "attempts": 1, "filesChanged": ["src/pages/from-the-bar.astro", "src/components/BarSection.astro"] },
     "T-009": { "status": "done", "model": "sonnet", "attempts": 1, "filesChanged": ["src/pages/index.astro", "src/components/Hero.astro"] },
     "T-012": { "status": "done", "model": "sonnet", "attempts": 1, "filesChanged": ["src/pages/catering.astro", "src/components/CateringForm.astro", "e2e/catering.spec.ts"] },
-    "T-015": { "status": "pending", "model": "sonnet" },
-    "T-016": { "status": "pending", "model": "sonnet" }
+    "T-015": { "status": "done", "model": "sonnet", "attempts": 2, "filesChanged": ["src/components/Seo.astro", "src/components/RestaurantSchema.astro", "src/layouts/BaseLayout.astro", "src/pages/sitemap.xml.ts", "public/robots.txt", "public/og-default.svg", "astro.config.mjs"] },
+    "T-016": { "status": "done", "model": "sonnet", "attempts": 1, "filesChanged": [], "note": "base-path check passes across 11 pages; secret scan clean; audit triaged (dev-only)" }
   },
-  "waves": { "completed": [1, 2, 3, 4, 5], "current": 6 }
+  "waves": { "completed": [1, 2, 3, 4, 5, 6, 7], "current": null }
 }

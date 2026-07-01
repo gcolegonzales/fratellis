@@ -28,3 +28,16 @@ Branch: `spec-build/all-1` · Execution: in-tree sequential by wave order (relia
 
 ### Wave 2 integration — GREEN
 - Full suite on integrated branch: build ✓ · typecheck 0 err ✓ · test 15 passed ✓ · lint ✓.
+
+## Waves 3–7 (summary)
+- **Wave 3 · T-004** site shell — BaseLayout/Header(responsive+a11y mobile nav)/Footer, withBase(), submit() seam, 404. 27 unit tests.
+- **Wave 4 · T-005/006/008/010/011/014** contact+open-now(hours, DST-correct), filterable menu, reservations+form, gallery+lightbox, testimonials, about. 49 unit tests; 9 e2e. **Key fix:** `[hidden]{display:none!important}` so Tailwind `flex`/`grid` utilities don't defeat `element.hidden` (broke card/form hiding).
+- **Wave 5 · T-007/009/012** From-the-Bar, home (hero/featured/hours/teasers), catering+form. 11 e2e all green.
+- **Wave 6 · T-015** SEO/OG/Twitter, JSON-LD Restaurant schema (validated), canonical (base-aware). **Fix:** dropped `@astrojs/sitemap` (v3.7.3 targets Astro 5's build hook → `_routes` undefined on Astro 4.16) in favor of a custom `sitemap.xml.ts` endpoint; robots.txt points to it.
+- **Wave 7 · T-016** full-site base-path verification (11 pages ✓), secret scan (clean — only placeholders), dependency audit triaged.
+
+### Phase 3 — audit triage (Scale tier: local-tool)
+- `npm audit`: 11 vulns (1 critical, 2 high, 8 moderate). **All are dev-dependency advisories** (Astro & Vite dev-servers, Vitest `@vitest/mocker`, `yaml` inside the type-checker). The deployed GitHub Pages artifact is static HTML/CSS/JS and ships NONE of these packages → no exposure to site visitors. `npm audit fix` (safe) clears none; remaining fixes need breaking majors (Astro 5 / Vitest 3), not forced pre-launch.
+- **Decision:** accepted as documented dev-only risk. Follow-up: upgrade dev toolchain (Astro 5 / Vitest 3) to clear.
+- Secret scan: clean (matches were `.env.example` doc + test placeholders only). No secrets committed.
+- Final integrated verify: typecheck 0 err · build 11 pages · 49 unit tests · 11 e2e · lint clean · base-path check ✓.
