@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import CateringForm from '../components/CateringForm.astro';
+import { withBase } from '../lib/base';
+import { site } from '../lib/site';
+
+const highlights = [
+  { title: 'Family-style trays', body: 'Pastas, baked dishes, and salads by the tray — enough to feed a crowd.' },
+  { title: 'Any occasion', body: 'Office lunches, birthdays, showers, holidays, and celebrations big and small.' },
+  { title: 'Made to order', body: 'The same fresh, from-scratch cooking you get in the dining room.' },
+];
+---
+
+<BaseLayout
+  title="Catering"
+  description={`Let ${site.name} cater your next event in the Prairieville and Baton Rouge area. Tell us about your event and we'll follow up.`}
+>
+  <Section>
+    <div class="max-w-prose">
+      <p class="eyebrow">Let us cater</p>
+      <h1 class="mt-3">Catering for your next gathering</h1>
+      <p class="prose-warm mt-4">
+        Bring Fratelli's to your table. Tell us a little about your event and a team member will
+        follow up to plan the menu and pricing. Prefer to talk it through now? Call
+        <a href={`tel:${site.phoneHref}`} class="font-semibold text-terracotta-700">{site.phone}</a>.
+      </p>
+    </div>
+
+    <div class="mt-10 grid gap-5 sm:grid-cols-3">
+      {
+        highlights.map((h) => (
+          <div class="rounded-card bg-cream-50 p-6 shadow-soft ring-1 ring-charcoal/5">
+            <h2 class="text-lg">{h.title}</h2>
+            <p class="prose-warm mt-2 text-sm">{h.body}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mt-12 grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+      <div class="max-w-prose">
+        <h2 class="text-2xl">Tell us about your event</h2>
+        <p class="prose-warm mt-3">
+          Share the date, headcount, and any details. The more you tell us, the better we can plan.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <Button href={withBase('/menu')} variant="ghost">Browse the menu</Button>
+          <Button href={withBase('/contact')} variant="ghost">Contact &amp; hours</Button>
+        </div>
+      </div>
+
+      <div class="rounded-card bg-cream-50 p-6 shadow-soft ring-1 ring-charcoal/10 sm:p-8">
+        <CateringForm />
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

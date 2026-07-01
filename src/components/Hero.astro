@@ -1,0 +1,47 @@
+---
+import Button from './Button.astro';
+import OpenNowBadge from './OpenNowBadge.astro';
+import { withBase } from '../lib/base';
+import { site } from '../lib/site';
+---
+
+<section class="relative isolate overflow-hidden bg-charcoal text-cream-100">
+  <!-- Background image + warm gradient scrim for legibility -->
+  <img
+    src={withBase('/images/gallery/wood-fired-pizza.svg')}
+    alt=""
+    aria-hidden="true"
+    class="absolute inset-0 -z-10 h-full w-full object-cover opacity-40"
+  />
+  <div
+    class="absolute inset-0 -z-10 bg-gradient-to-br from-charcoal via-charcoal/85 to-terracotta-900/70"
+  >
+  </div>
+
+  <div class="mx-auto max-w-content px-5 py-24 sm:px-8 sm:py-32 lg:py-40">
+    <div class="max-w-2xl">
+      <p class="eyebrow text-gold-400">Prairieville, Louisiana · Est. {site.established}</p>
+      <h1 class="mt-4 font-display text-4xl font-semibold leading-[1.05] text-cream-50 sm:text-6xl">
+        Authentic Italian,<br />made to order.
+      </h1>
+      <p class="mt-5 max-w-xl text-lg leading-relaxed text-cream-100/85">
+        Family owned and family run. Fresh pasta, wood-fired pizza, and Italian classics served the
+        way they should be — from our family's table to yours.
+      </p>
+
+      <div class="mt-8 flex flex-wrap items-center gap-3">
+        <Button href={withBase('/menu')} variant="primary" size="lg">View the menu</Button>
+        <Button href={withBase('/reservations')} size="lg" class="bg-cream-50 text-charcoal hover:bg-cream-100">
+          Reserve a table
+        </Button>
+      </div>
+
+      <div class="mt-8 flex flex-wrap items-center gap-4">
+        <OpenNowBadge />
+        <a href={`tel:${site.phoneHref}`} class="text-sm font-semibold text-gold-400 no-underline hover:underline">
+          {site.phone}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -8,17 +8,17 @@
     "T-003": { "status": "done", "model": "sonnet", "attempts": 1, "filesChanged": ["src/content/config.ts", "src/content/menu/food.json", "src/content/bar/drinks.json", "src/content/site/info.json", "src/lib/menu.ts", "tests/menu.test.ts"] },
     "T-013": { "status": "done", "model": "sonnet", "attempts": 2, "filesChanged": [".github/workflows/deploy.yml", "public/.nojekyll", "scripts/check-base-paths.mjs", "README.md"] },
     "T-004": { "status": "done", "model": "sonnet", "attempts": 1, "filesChanged": ["src/layouts/BaseLayout.astro", "src/components/Header.astro", "src/components/Footer.astro", "src/lib/base.ts", "src/lib/submit.ts", "src/lib/site.ts", "src/pages/404.astro", "public/favicon.svg", "tests/base.test.ts", "tests/submit.test.ts"] },
-    "T-005": { "status": "pending", "model": "sonnet" },
-    "T-006": { "status": "pending", "model": "sonnet" },
-    "T-008": { "status": "pending", "model": "sonnet" },
-    "T-010": { "status": "pending", "model": "sonnet" },
-    "T-011": { "status": "pending", "model": "sonnet" },
-    "T-014": { "status": "pending", "model": "sonnet" },
+    "T-005": { "status": "done", "model": "sonnet", "attempts": 1, "filesChanged": ["src/lib/hours.ts", "src/components/OpenNowBadge.astro", "src/components/HoursTable.astro", "src/components/MapEmbed.astro", "src/pages/contact.astro", "tests/hours.test.ts"] },
+    "T-006": { "status": "done", "model": "sonnet", "attempts": 2, "filesChanged": ["src/pages/menu.astro", "src/components/MenuSection.astro", "src/components/DishCard.astro", "src/components/MenuFilter.astro", "e2e/menu.spec.ts", "src/styles/global.css"] },
+    "T-008": { "status": "done", "model": "sonnet", "attempts": 2, "filesChanged": ["src/pages/reservations.astro", "src/components/ReservationForm.astro", "src/lib/form.ts", "tests/form.test.ts", "e2e/reservation.spec.ts"] },
+    "T-010": { "status": "done", "model": "sonnet", "attempts": 1, "filesChanged": ["src/pages/gallery.astro", "src/components/Gallery.astro", "public/images/gallery/*.svg", "e2e/gallery.spec.ts"] },
+    "T-011": { "status": "done", "model": "sonnet", "attempts": 1, "filesChanged": ["src/pages/testimonials.astro", "src/components/Testimonials.astro", "src/content/testimonials/reviews.json", "src/content/config.ts"] },
+    "T-014": { "status": "done", "model": "sonnet", "attempts": 1, "filesChanged": ["src/pages/about.astro"] },
     "T-007": { "status": "pending", "model": "sonnet" },
     "T-009": { "status": "pending", "model": "sonnet" },
     "T-012": { "status": "pending", "model": "sonnet" },
     "T-015": { "status": "pending", "model": "sonnet" },
     "T-016": { "status": "pending", "model": "sonnet" }
   },
-  "waves": { "completed": [1, 2, 3], "current": 4 }
+  "waves": { "completed": [1, 2, 3, 4], "current": 5 }
 }

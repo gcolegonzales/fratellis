@@ -1,0 +1,31 @@
+---
+import { formatVariants, type MenuItem, type Category } from '../lib/menu';
+
+interface Props {
+  category: Category;
+  items: MenuItem[];
+}
+const { category, items } = Astro.props;
+---
+
+<section id={`bar-${category.id}`} data-category-section={category.id} class="scroll-mt-28">
+  <h2 class="border-b border-terracotta-200 pb-2 text-2xl sm:text-3xl">{category.name}</h2>
+  <ul class="mt-5 divide-y divide-charcoal/10">
+    {
+      items.map((item) => (
+        <li class="bar-item flex items-baseline justify-between gap-4 py-3" data-search={`${item.name} ${item.description ?? ''}`.toLowerCase()}>
+          <div>
+            <p class="font-display text-lg text-charcoal">
+              {item.name}
+              {item.region && <span class="ml-2 text-sm font-body italic text-charcoal-muted">{item.region}</span>}
+            </p>
+            {item.description && <p class="prose-warm mt-0.5 text-sm">{item.description}</p>}
+          </div>
+          <p class="shrink-0 whitespace-nowrap text-right font-body text-sm font-semibold text-terracotta-700">
+            {formatVariants(item).join(' · ')}
+          </p>
+        </li>
+      ))
+    }
+  </ul>
+</section>

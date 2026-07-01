@@ -1,0 +1,59 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import BarSection from '../components/BarSection.astro';
+import { groupByCategory, type MenuItem, type Category } from '../lib/menu';
+import { withBase } from '../lib/base';
+
+const bar = await getEntry('bar', 'drinks');
+const items = bar.data.items as MenuItem[];
+const categories = bar.data.categories as Category[];
+const grouped = groupByCategory(items, categories);
+const catName = (id: string) => categories.find((c) => c.id === id)?.name ?? id;
+---
+
+<BaseLayout
+  title="From the Bar"
+  description="Wine by the varietal, beer, and specialty cocktails at Fratelli's Italian Grille."
+>
+  <Section>
+    <div class="max-w-prose">
+      <p class="eyebrow">From the bar</p>
+      <h1 class="mt-3">Wine, beer &amp; cocktails</h1>
+      <p class="prose-warm mt-4">
+        An Italian-leaning wine list, cold beer, and classic cocktails to go with dinner. Must be
+        21+ to enjoy alcohol.
+      </p>
+    </div>
+
+    <nav
+      aria-label="Bar categories"
+      class="sticky top-[3.75rem] z-30 -mx-5 mt-8 overflow-x-auto border-y border-charcoal/10 bg-cream/95 px-5 py-2 backdrop-blur sm:-mx-8 sm:px-8"
+    >
+      <ul class="flex gap-1.5 whitespace-nowrap">
+        {
+          grouped.map(({ category }) => (
+            <li>
+              <a href={`#bar-${category}`} class="inline-block rounded-pill px-3 py-1 text-sm font-medium text-charcoal-light no-underline hover:bg-terracotta-50">
+                {catName(category)}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="mt-10 space-y-12">
+      {grouped.map(({ category, items: catItems }) => <BarSection category={categories.find((c) => c.id === category) ?? { id: category, name: catName(category) }} items={catItems} />)}
+    </div>
+
+    <p class="prose-warm mt-12 text-sm">Vintages and availability may vary. Please drink responsibly.</p>
+
+    <div class="mt-6 flex flex-wrap gap-3">
+      <Button href={withBase('/menu')} variant="primary">See the food menu</Button>
+      <Button href={withBase('/reservations')} variant="ghost">Reserve a table</Button>
+    </div>
+  </Section>
+</BaseLayout>

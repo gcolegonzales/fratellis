@@ -1,0 +1,154 @@
+---
+// Catering inquiry form. Reuses the validation helpers (src/lib/form.ts) and
+// the swappable submit() seam (src/lib/submit.ts) — same pattern as the
+// reservation form; no transport is hard-coded here.
+const fieldClass =
+  'mt-1 w-full rounded-lg border-0 bg-cream px-3.5 py-2.5 text-charcoal ring-1 ring-charcoal/15 focus:ring-2 focus:ring-terracotta-600';
+const labelClass = 'block font-body text-sm font-semibold text-charcoal';
+const errorClass = 'mt-1 text-sm text-terracotta-700';
+---
+
+<form id="catering-form" novalidate class="grid gap-5 sm:grid-cols-2">
+  <div class="sm:col-span-2">
+    <label class={labelClass} for="c-name">Name</label>
+    <input class={fieldClass} id="c-name" name="name" type="text" autocomplete="name" aria-describedby="c-name-error" required />
+    <p class={errorClass} id="c-name-error" hidden></p>
+  </div>
+
+  <div>
+    <label class={labelClass} for="c-phone">Phone</label>
+    <input class={fieldClass} id="c-phone" name="phone" type="tel" autocomplete="tel" aria-describedby="c-phone-error" required />
+    <p class={errorClass} id="c-phone-error" hidden></p>
+  </div>
+
+  <div>
+    <label class={labelClass} for="c-email">Email</label>
+    <input class={fieldClass} id="c-email" name="email" type="email" autocomplete="email" aria-describedby="c-email-error" required />
+    <p class={errorClass} id="c-email-error" hidden></p>
+  </div>
+
+  <div>
+    <label class={labelClass} for="c-date">Event date</label>
+    <input class={fieldClass} id="c-date" name="eventDate" type="date" aria-describedby="c-date-error" required />
+    <p class={errorClass} id="c-date-error" hidden></p>
+  </div>
+
+  <div>
+    <label class={labelClass} for="c-headcount">Guests</label>
+    <input class={fieldClass} id="c-headcount" name="headcount" type="number" min="1" max="1000" inputmode="numeric" aria-describedby="c-headcount-error" required />
+    <p class={errorClass} id="c-headcount-error" hidden></p>
+  </div>
+
+  <div class="sm:col-span-2">
+    <label class={labelClass} for="c-type">Event type <span class="font-normal text-charcoal-muted">(optional)</span></label>
+    <input class={fieldClass} id="c-type" name="eventType" type="text" placeholder="Office lunch, birthday, wedding…" />
+  </div>
+
+  <div class="sm:col-span-2">
+    <label class={labelClass} for="c-details">Details <span class="font-normal text-charcoal-muted">(optional)</span></label>
+    <textarea class={fieldClass} id="c-details" name="details" rows="4" placeholder="Menu preferences, budget, delivery vs. pickup…"></textarea>
+  </div>
+
+  <div class="sm:col-span-2">
+    <button
+      type="submit"
+      id="c-submit"
+      class="inline-flex items-center justify-center rounded-pill bg-terracotta-600 px-6 py-3 font-body font-semibold text-cream-50 shadow-soft transition-colors hover:bg-terracotta-700 disabled:opacity-60"
+    >
+      Send inquiry
+    </button>
+    <p class="mt-3 text-sm text-charcoal-muted">A team member will follow up to plan the details and pricing.</p>
+  </div>
+</form>
+
+<div
+  id="catering-confirm"
+  role="status"
+  aria-live="polite"
+  hidden
+  class="rounded-card bg-olive-50 p-6 ring-1 ring-olive-200"
+>
+  <h2 class="font-display text-2xl font-semibold text-olive-700">Thanks — we've got it!</h2>
+  <p class="prose-warm mt-2" id="catering-confirm-msg"></p>
+  <a id="catering-mailto" href="#" hidden class="mt-4 inline-flex items-center justify-center rounded-pill bg-terracotta-600 px-5 py-2.5 font-semibold text-cream-50 no-underline">Open your email to send</a>
+</div>
+
+<script>
+  import { validateCatering, hasErrors, type Errors } from '../lib/form';
+  import { submit } from '../lib/submit';
+
+  const form = document.getElementById('catering-form') as HTMLFormElement | null;
+  const confirm = document.getElementById('catering-confirm');
+  const confirmMsg = document.getElementById('catering-confirm-msg');
+  const mailtoLink = document.getElementById('catering-mailto') as HTMLAnchorElement | null;
+  const submitBtn = document.getElementById('c-submit') as HTMLButtonElement | null;
+
+  const fieldIds: Record<string, string> = {
+    name: 'c-name',
+    phone: 'c-phone',
+    email: 'c-email',
+    eventDate: 'c-date',
+    headcount: 'c-headcount',
+  };
+
+  function showErrors(errors: Errors) {
+    for (const [field, id] of Object.entries(fieldIds)) {
+      const input = document.getElementById(id) as HTMLInputElement | null;
+      const errEl = document.getElementById(`${id}-error`);
+      const msg = errors[field];
+      if (input) input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      if (errEl) {
+        errEl.textContent = msg ?? '';
+        errEl.hidden = !msg;
+      }
+    }
+    const firstBad = Object.keys(errors)[0];
+    if (firstBad) document.getElementById(fieldIds[firstBad])?.focus();
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const values = {
+      name: String(data.get('name') ?? ''),
+      phone: String(data.get('phone') ?? ''),
+      email: String(data.get('email') ?? ''),
+      eventDate: String(data.get('eventDate') ?? ''),
+      headcount: String(data.get('headcount') ?? ''),
+      eventType: String(data.get('eventType') ?? ''),
+      details: String(data.get('details') ?? ''),
+    };
+
+    const errors = validateCatering(values);
+    showErrors(errors);
+    if (hasErrors(errors)) return;
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+    }
+
+    const result = await submit('catering', values);
+
+    if (result.ok) {
+      form.hidden = true;
+      if (confirm) confirm.hidden = false;
+      if (result.mode === 'mailto' && result.mailto && mailtoLink) {
+        mailtoLink.href = result.mailto;
+        mailtoLink.hidden = false;
+        if (confirmMsg)
+          confirmMsg.textContent =
+            'We’ve prepared your inquiry. Tap below to send it from your email app, or call us to talk it through.';
+      } else if (confirmMsg) {
+        confirmMsg.textContent = 'Your inquiry has been sent — we’ll be in touch soon to plan the details.';
+      }
+      confirm?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send inquiry';
+      }
+      alert('Something went wrong sending your inquiry. Please try again or call us.');
+    }
+  });
+</script>
