@@ -1,0 +1,25 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# test artifacts
+test-results/
+playwright-report/
+playwright/.cache/
+coverage/
+
+# env & logs
+.env
+.env.*
+!.env.example
+*.log
+npm-debug.log*
+
+# os / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
